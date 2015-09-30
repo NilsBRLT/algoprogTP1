@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5DDE745A1BBC461D00260B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74591BBC461D00260B11 /* main.cpp */; };
+		5DDE74631BBC5C6A00260B11 /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74611BBC5C6A00260B11 /* tools.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,8 +25,10 @@
 
 /* Begin PBXFileReference section */
 		5DDE74561BBC461D00260B11 /* algoprog_tp1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algoprog_tp1; sourceTree = BUILT_PRODUCTS_DIR; };
-		5DDE74591BBC461D00260B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5DDE74591BBC461D00260B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = algoprog_tp1/main.cpp; sourceTree = SOURCE_ROOT; };
 		5DDE74601BBC473E00260B11 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5DDE74611BBC5C6A00260B11 /* tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tools.cpp; path = ../tools.cpp; sourceTree = "<group>"; };
+		5DDE74621BBC5C6A00260B11 /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tools.h; path = ../tools.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +62,8 @@
 		5DDE74581BBC461D00260B11 /* algoprog_tp1 */ = {
 			isa = PBXGroup;
 			children = (
+				5DDE74611BBC5C6A00260B11 /* tools.cpp */,
+				5DDE74621BBC5C6A00260B11 /* tools.h */,
 				5DDE74591BBC461D00260B11 /* main.cpp */,
 			);
 			path = algoprog_tp1;
@@ -121,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DDE745A1BBC461D00260B11 /* main.cpp in Sources */,
+				5DDE74631BBC5C6A00260B11 /* tools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

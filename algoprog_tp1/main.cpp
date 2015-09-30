@@ -6,10 +6,14 @@
 //  Copyright (c) 2015 Porlat. All rights reserved.
 //
 
-#include <iostream>
+// print the content of a text file.
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+#include "tools.h"
+
+int main () {
+    Tools tool = Tools();
+    
+    tool.read("/Users/portepa/development/algoprog_tp1/nils.pbm");
+    
     return 0;
 }
