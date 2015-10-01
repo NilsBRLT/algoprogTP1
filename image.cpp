@@ -71,3 +71,18 @@ void Image::analyseLigne(string ligne, int position) {
         }
     }
 }
+
+void Image::generer(int largeur, int hauteur) {
+    this->largeur = largeur;
+    this->hauteur = hauteur;
+    this->type = CODE_PPM;
+    
+    pixels.clear();
+    srand(time_t(NULL));
+    
+    for (int i=0; i<this->largeur*this->hauteur; i++) {
+        // Création d'un chiffre aléatoire (0 ou 1)
+        pixels.push_back(rand() % 2);
+    }
+}
+
