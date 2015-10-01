@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29A30CD21BBD514200F0050B /* maillon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A30CD01BBD514200F0050B /* maillon.cpp */; };
 		5DDE745A1BBC461D00260B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74591BBC461D00260B11 /* main.cpp */; };
 		5DDE74631BBC5C6A00260B11 /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74611BBC5C6A00260B11 /* tools.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		29A30CD01BBD514200F0050B /* maillon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maillon.cpp; sourceTree = "<group>"; };
+		29A30CD11BBD514200F0050B /* maillon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maillon.h; sourceTree = "<group>"; };
 		5DDE74561BBC461D00260B11 /* algoprog_tp1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algoprog_tp1; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDE74591BBC461D00260B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = algoprog_tp1/main.cpp; sourceTree = SOURCE_ROOT; };
 		5DDE74601BBC473E00260B11 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -65,6 +68,8 @@
 				5DDE74611BBC5C6A00260B11 /* tools.cpp */,
 				5DDE74621BBC5C6A00260B11 /* tools.h */,
 				5DDE74591BBC461D00260B11 /* main.cpp */,
+				29A30CD01BBD514200F0050B /* maillon.cpp */,
+				29A30CD11BBD514200F0050B /* maillon.h */,
 			);
 			path = algoprog_tp1;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DDE745A1BBC461D00260B11 /* main.cpp in Sources */,
+				29A30CD21BBD514200F0050B /* maillon.cpp in Sources */,
 				5DDE74631BBC5C6A00260B11 /* tools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +249,7 @@
 				5DDE745F1BBC461D00260B11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
