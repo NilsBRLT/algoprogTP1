@@ -35,6 +35,14 @@ int Image::read(string filepath) {
             }
             c = ifs.get();
         }
+        
+        // Début affichage pour test
+        for (unsigned i=0; i < hauteur; i++) {
+            for (unsigned j=0; j < largeur; j++) {
+                cout << pixels[j+i*largeur] << " ";
+            }
+            cout << '\n';
+        }
     }
     else {
         // show message:
@@ -56,12 +64,10 @@ void Image::analyseLigne(string ligne, int position) {
         hauteur = stoi(ligne.substr(pos));
         return;
     } else {
-        for (size_t pos = 0; pos < ligne.length(); pos = ligne.find("1", pos)) {
-            if (pos == string::npos) {
-                pos = ligne.find("0", pos);
-            }
-            cout << ligne.substr(pos, pos);
-            pixels.push_back((stoi(ligne.substr(pos, pos))));
+        for (unsigned int i = 0; i < ligne.length(); i++) {
+            char c = ligne[i];
+            if (c == '0' || c == '1')
+                pixels.push_back(ligne[i] - '0');
         }
     }
 }
