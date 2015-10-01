@@ -8,12 +8,12 @@
 
 // print the content of a text file.
 
-#include "tools.h"
+#include "image.h"
 
 int main () {
-    Tools tool = Tools();
+    Image image = Image();
     
-    tool.read("/Users/portepa/development/algoprog_tp1/nils.pbm");
+    image.read("/Users/portepa/development/algoprog_tp1/nils.pbm");
     
     return 0;
 }
