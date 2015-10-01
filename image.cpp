@@ -37,9 +37,9 @@ int Image::read(string filepath) {
         }
         
         // Début affichage pour test
-        for (unsigned i=0; i < hauteur; i++) {
-            for (unsigned j=0; j < largeur; j++) {
-                cout << pixels[j+i*largeur] << " ";
+        for (unsigned i=0; i < m_hauteur; i++) {
+            for (unsigned j=0; j < m_largeur; j++) {
+                cout << m_pixels[j+i*m_largeur] << " ";
             }
             cout << '\n';
         }
@@ -56,33 +56,33 @@ int Image::read(string filepath) {
 
 void Image::analyseLigne(string ligne, int position) {
     if (position == 0) {
-        type = ligne;
+        m_type = ligne;
         return;
     } else if (position == 1) {
         size_t pos = ligne.find(" ");
-        largeur = stoi(ligne.substr(0, pos));
-        hauteur = stoi(ligne.substr(pos));
+        m_largeur = stoi(ligne.substr(0, pos));
+        m_hauteur = stoi(ligne.substr(pos));
         return;
     } else {
         for (unsigned int i = 0; i < ligne.length(); i++) {
             char c = ligne[i];
             if (c == '0' || c == '1')
-                pixels.push_back(ligne[i] - '0');
+                m_pixels.push_back(ligne[i] - '0');
         }
     }
 }
 
 void Image::generer(int largeur, int hauteur) {
-    this->largeur = largeur;
-    this->hauteur = hauteur;
-    this->type = CODE_PPM;
+    m_largeur = largeur;
+    m_hauteur = hauteur;
+    m_type = CODE_PPM;
     
-    pixels.clear();
+    m_pixels.clear();
     srand(time_t(NULL));
     
-    for (int i=0; i<this->largeur*this->hauteur; i++) {
+    for (int i=0; i<m_largeur*m_hauteur; i++) {
         // Création d'un chiffre aléatoire (0 ou 1)
-        pixels.push_back(rand() % 2);
+        m_pixels.push_back(rand() % 2);
     }
 }
 

@@ -26,10 +26,10 @@ public:
     void analyseLigne(string ligne, int position);
     void generer(int largeur, int hauteur);
 private:
-    string type;
-    int largeur;
-    int hauteur;
-    vector<int> pixels;
+    string m_type;
+    int m_largeur;
+    int m_hauteur;
+    vector<int> m_pixels;
 };
 
 #include <stdio.h>
