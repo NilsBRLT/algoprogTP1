@@ -17,6 +17,7 @@ using namespace std;
 
 #define CODE_PBM "P1"
 #define CODE_PPM "P3"
+#define NB_COULEURS 255
 
 class Image {
 public:
@@ -25,11 +26,14 @@ public:
     int read(string filepath);
     void analyseLigne(string ligne, int position);
     void generer(int largeur, int hauteur);
+    void write(string filepath);
 private:
     string m_type;
     int m_largeur;
     int m_hauteur;
     vector<int> m_pixels;
+    
+    int compteChiffresDansNombre(int nombre);
 };
 
 #include <stdio.h>

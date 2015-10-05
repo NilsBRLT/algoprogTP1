@@ -7,6 +7,7 @@
 //
 
 #include "image.h"
+#include "string.h"
 
 Image::Image() {
 }
@@ -86,3 +87,77 @@ void Image::generer(int largeur, int hauteur) {
     }
 }
 
+void Image::write(string filepath) {
+    
+    // Création d'un fichier (mode out)
+    std::ofstream ofs;
+    ofs.open (filepath, std::ofstream::out);
+    
+    if (ofs.is_open()) {
+        // Préparation du type (P3) en char*
+        char* type = (char*)malloc(m_type.size());
+        strcpy(type, m_type.c_str());
+        
+        // Préparation du '\n' en char*
+        char* retourLigne = (char*)malloc(1);
+        string retourLigneString = "\n";
+        strcpy(retourLigne, retourLigneString.c_str());
+        
+        // Préparation de l'espace ' ' en char*
+        char* espace = (char*)malloc(1);
+        string espaceString = " ";
+        strcpy(espace, espaceString.c_str());
+        
+        // Préparation de la largeur et de la hauteur
+        char* largeur = (char*)malloc(compteChiffresDansNombre(m_largeur));
+        string largeurString = to_string(m_largeur);
+        strcpy(largeur, largeurString.c_str());
+        char* hauteur = (char*)malloc(compteChiffresDansNombre(m_hauteur));
+        string hauteurString = to_string(m_hauteur);
+        strcpy(hauteur, hauteurString.c_str());
+        
+        // Préparation du nombre de couleurs (NB_COULEURS)
+        char* nbCouleurs = (char*)malloc(compteChiffresDansNombre(NB_COULEURS));
+        string nbCouleursString = to_string(NB_COULEURS);
+        strcpy(nbCouleurs, nbCouleursString.c_str());
+        
+        
+        // ECRITURE DU HEADER DANS LE FICHIER
+        ofs.write(type, sizeof(type));
+        ofs.write(retourLigne, sizeof(retourLigne));
+        ofs.write(largeur, sizeof(largeur));
+        ofs.write(espace, sizeof(espace));
+        ofs.write(hauteur, sizeof(hauteur));
+        ofs.write(retourLigne, sizeof(retourLigne));
+        ofs.write(nbCouleurs, sizeof(nbCouleurs));
+        ofs.write(retourLigne, sizeof(retourLigne));
+        
+        // BOUCLE D'ECRITURE DES PIXELS
+        
+        
+        // FIN BOUCLE
+        
+        free(type);
+        free(retourLigne);
+        free(espace);
+        free(largeur);
+        free(hauteur);
+        free(nbCouleurs);
+    }
+    else {
+        // show message:
+        std::cout << "Error creating file";
+    }
+    
+    ofs.close();
+}
+
+int Image::compteChiffresDansNombre(int nombre) {
+    int nb_chiffres = 0;
+    
+    do {
+        nb_chiffres++;
+        nombre /= 10;
+    } while (nombre != 0);
+    return nb_chiffres;
+}
