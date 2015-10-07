@@ -13,6 +13,7 @@
 #include <fstream>      // std::ifstream
 #include <vector>
 #include <time.h>
+#include <stdio.h>
 using namespace std;
 
 #define CODE_PBM "P1"
@@ -35,7 +36,5 @@ private:
     
     int compteChiffresDansNombre(int nombre);
 };
-
-#include <stdio.h>
 
 #endif /* defined(__algoprog_tp1__image__) */
