@@ -21,13 +21,14 @@
 
 int main () {
     Image image = Image();
+    image.read(IMAGE_IN_PA);
+//    image.read(IMAGE_IN_NILS);
     
-    //image.read(IMAGE_IN_PA);
-    image.read(IMAGE_IN_NILS);
     
-    
-    image.generer(2, 2);
-    image.write(IMAGE_OUT_NILS);
+//    image.write(IMAGE_OUT_NILS);
+    image.generer(5, 5);
+//        image.write(IMAGE_OUT_NILS);
+    image.write(IMAGE_OUT_PA);
     
     
     

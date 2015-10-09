@@ -14,9 +14,10 @@
 #include <vector>
 #include <time.h>
 #include <stdio.h>
-#include "string.h"
 #include "PixelPBM.h"
 #include "Pixel.h"
+#include "maillon.h"
+
 using namespace std;
 
 #define CODE_PBM "P1"
@@ -28,8 +29,9 @@ public:
     Image();
     ~Image();
     int read(string filepath);
-    void analyseLigne(string ligne, int position);
     void generer(int largeur, int hauteur);
+    Maillon makeSet();
+    Maillon findSet();
     void write(string filepath);
 private:
     string m_type;

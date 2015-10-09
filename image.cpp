@@ -42,6 +42,7 @@ int Image::read(string filepath) {
             if ((c == '0' || c == '1') && numeroLigne >= 2) {
                 PixelPBM pix = PixelPBM((int)c - '0');
                 m_pixels.push_back(pix);
+
             }
             c = ifs.get();
         }
@@ -154,6 +155,15 @@ void Image::write(string filepath) {
     
     ofs.close();
 }
+
+//Maillon Image::findSet(Pixel *pixel) {
+//    Maillon maillon;
+//    return maillon;
+//}
+//
+//Maillon Image::makeSet() {
+//    return Maillon(<#Maillon *suivant#>, Maillon *representant)
+//}
 
 int Image::compteChiffresDansNombre(int nombre) {
     int nb_chiffres = 0;
