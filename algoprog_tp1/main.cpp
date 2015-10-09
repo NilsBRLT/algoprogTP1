@@ -36,7 +36,7 @@ int main () {
      
      */
     
-    Pixel pix = PixelPBM(0);
+    PixelPBM pix = PixelPBM(0);
     cout << "J'ai donc : " << pix.getValeur();
     vector<Pixel> v;
     v.push_back(pix);

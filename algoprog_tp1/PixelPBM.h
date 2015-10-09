@@ -20,7 +20,8 @@ public:
     PixelPBM(int valeur);
     ~PixelPBM();
     
-    string getValeur();
+    string getString();
+    int getValeur();
     
 private:
     int m_valeur;

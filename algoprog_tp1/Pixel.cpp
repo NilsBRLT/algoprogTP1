@@ -15,3 +15,7 @@ Pixel::Pixel() {
 Pixel::~Pixel() {
     
 }
+
+string Pixel::getValeur() {
+    return "0";
+}

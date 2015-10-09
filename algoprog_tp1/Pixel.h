@@ -21,7 +21,7 @@ public:
     Pixel();
     ~Pixel();
     
-    virtual string getValeur();
+    string getValeur();
 
 private:
     

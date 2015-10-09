@@ -18,6 +18,10 @@ PixelPBM::~PixelPBM() {
     
 }
 
-string PixelPBM::getValeur() {
+string PixelPBM::getString() {
     return to_string(m_valeur);
+}
+
+int PixelPBM::getValeur() {
+    return m_valeur;
 }

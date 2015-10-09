@@ -14,6 +14,7 @@
 #include <vector>
 #include <time.h>
 #include <stdio.h>
+#include "string.h"
 using namespace std;
 
 #define CODE_PBM "P1"
