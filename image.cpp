@@ -40,7 +40,8 @@ int Image::read(string filepath) {
                 ligne = "";
             }
             if ((c == '0' || c == '1') && numeroLigne >= 2) {
-                m_pixels.push_back(c);
+                PixelPBM pix = PixelPBM((int)c - '0');
+                m_pixels.push_back(pix);
             }
             c = ifs.get();
         }
@@ -48,7 +49,7 @@ int Image::read(string filepath) {
         // Début affichage pour test
         for (unsigned i=0; i < m_hauteur; i++) {
             for (unsigned j=0; j < m_largeur; j++) {
-                cout << m_pixels[j+i*m_largeur] << " ";
+                cout << m_pixels[j+i*m_largeur].getString() << " ";
             }
             cout << '\n';
         }
@@ -74,7 +75,8 @@ void Image::generer(int largeur, int hauteur) {
     
     for (int i=0; i<m_largeur*m_hauteur; i++) {
         // Création d'un chiffre aléatoire (0 ou 1)
-        m_pixels.push_back(rand() % 2);
+        PixelPBM pix = PixelPBM(rand() % 2);
+        m_pixels.push_back(pix);
     }
 }
 
@@ -125,6 +127,16 @@ void Image::write(string filepath) {
         
         // BOUCLE D'ECRITURE DES PIXELS
         
+        for (int i = 0; i < m_pixels.size(); i++) {
+            // Préparation de pixels
+            string pixelString = m_pixels[i].getString();
+            char* pixel = (char*)malloc(sizeof(pixelString));
+            strcpy(pixel, pixelString.c_str());
+            
+            // Écriture
+            ofs.write(pixel, sizeof(pixel));
+            ofs.write(espace, sizeof(espace));
+        }
         
         // FIN BOUCLE
         

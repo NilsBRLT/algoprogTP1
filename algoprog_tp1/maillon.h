@@ -10,7 +10,7 @@
 #define __algoprog_tp1__maillon__
 
 #include <stdio.h>
-
+#include "Pixel.h"
 
 #define INDICE_ROUGE 0
 #define INDICE_VERT 1
@@ -19,20 +19,20 @@
 class Maillon {
     
 private:
-    int m_pixel[3];
+    Pixel m_pixel;
     Maillon* m_suivant;
     Maillon* m_representant;
 public:
     Maillon();
-    Maillon(int pixel[3]);
-    Maillon(int pixel[3], Maillon* suivant, Maillon* representant);
+    Maillon(Pixel pixel);
+    Maillon(Pixel pixel, Maillon* suivant, Maillon* representant);
     ~Maillon();
     
-    void setPixel(int rouge, int vert, int bleu);
+    void setPixel(Pixel pixel);
     void setSuivant(Maillon* suivant);
     void setRepresentant(Maillon* representant);
     
-    int* getPixel();
+    Pixel getPixel();
     Maillon* getSuivant();
     Maillon* getRepresentant();
 };

@@ -26,7 +26,7 @@ int main () {
     image.read(IMAGE_IN_NILS);
     
     
-    image.generer(5, 5);
+    image.generer(2, 2);
     image.write(IMAGE_OUT_NILS);
     
     

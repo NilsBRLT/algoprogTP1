@@ -15,6 +15,8 @@
 #include <time.h>
 #include <stdio.h>
 #include "string.h"
+#include "PixelPBM.h"
+#include "Pixel.h"
 using namespace std;
 
 #define CODE_PBM "P1"
@@ -33,7 +35,7 @@ private:
     string m_type;
     int m_largeur;
     int m_hauteur;
-    vector<int> m_pixels;
+    vector<Pixel> m_pixels;
     
     int compteChiffresDansNombre(int nombre);
 };
