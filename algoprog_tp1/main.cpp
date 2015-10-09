@@ -10,6 +10,7 @@
 
 #include "image.h"
 #include "PixelPBM.h"
+#include "PixelPPM.h"
 #include "Pixel.h"
 #include <vector>
 
@@ -29,17 +30,16 @@ int main () {
     image.write(IMAGE_OUT_NILS);
     
     
-    // PARTIE DE TESTS SUR LE POLYMORPHISME PIXEL
-    /*
-     Erreur à la compilation : PixelPBM ne redéfinit pas correctement la méthode getValeur.
-     Je sais plus faire en C++... Faut réussir à override la méthode pour pouvoir faire un tableau de Pixel (classe mère)
-     
-     */
+    
+    // TESTS DES CLASSES DE PIXELS
     
     PixelPBM pix = PixelPBM(0);
-    cout << "J'ai donc : " << pix.getValeur();
+    PixelPPM pix2 = PixelPPM(0,0,0);
+    cout << "J'ai donc : " << pix.getString() << endl;
+    cout << "J'ai donc : " << pix2.getString() << endl;
     vector<Pixel> v;
     v.push_back(pix);
+    v.push_back(pix2);
     
     return 0;
 }
