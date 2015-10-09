@@ -156,14 +156,29 @@ void Image::write(string filepath) {
     ofs.close();
 }
 
-//Maillon Image::findSet(Pixel *pixel) {
-//    Maillon maillon;
-//    return maillon;
-//}
-//
-//Maillon Image::makeSet() {
-//    return Maillon(<#Maillon *suivant#>, Maillon *representant)
-//}
+Maillon* Image::findSet(Pixel pixel) {
+    for (int i=0; i<m_sets.size(); i++) {
+        
+        for (Maillon maillon = m_sets[i]; maillon.getSuivant() != nullptr ; maillon.getSuivant()) {
+            if (maillon.getPixel() == pixel) {
+                return maillon;
+            }
+        }
+//        test purpose
+        cout << m_sets[i].getRepresentant() << " ";
+    }
+    return nullptr;
+}
+
+Maillon* Image::makeSet(Pixel* pixel) {
+    return new Maillon(*pixel);
+}
+
+void Image::colorierImage() {
+//    Boucler sur les pixels de l'image
+//    pour créer l'ensemble de set et peupler m_sets
+//    Unioner les sets blabla...
+}
 
 int Image::compteChiffresDansNombre(int nombre) {
     int nb_chiffres = 0;

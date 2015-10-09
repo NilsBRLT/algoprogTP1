@@ -30,14 +30,16 @@ public:
     ~Image();
     int read(string filepath);
     void generer(int largeur, int hauteur);
-    Maillon makeSet();
-    Maillon findSet();
+    Maillon* makeSet(Pixel* pixel);
+    Maillon* findSet(Pixel pixel);
+    void colorierImage();
     void write(string filepath);
 private:
     string m_type;
     int m_largeur;
     int m_hauteur;
     vector<Pixel> m_pixels;
+    vector<*Maillon> m_sets;
     
     int compteChiffresDansNombre(int nombre);
 };
