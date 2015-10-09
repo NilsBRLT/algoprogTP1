@@ -42,5 +42,11 @@ int main () {
     v.push_back(pix);
     v.push_back(pix2);
     
+    PixelPBM pix3 = PixelPBM(1);
+    PixelPBM pix4 = PixelPBM(0);
+    
+    cout << "Egalité 1 (0 == 0): " << (pix == pix4) << endl;
+    cout << "Egalité 2 (0 == 1): " << (pix == pix3) << endl;
+    
     return 0;
 }

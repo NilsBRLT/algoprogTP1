@@ -21,7 +21,7 @@ public:
     Pixel();
     ~Pixel();
     
-    string getString();
+    string getString() const;
 
 private:
     

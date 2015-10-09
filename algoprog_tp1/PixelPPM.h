@@ -13,6 +13,7 @@
 #include "string.h"
 #include <stdlib.h>
 #include "Pixel.h"
+#include "PixelPBM.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
     PixelPPM(int rouge, int vert, int bleu);
     ~PixelPPM();
     
-    string getString();
+    string getString() const;
     int getRouge();
     int getVert();
     int getBleu();
@@ -32,5 +33,10 @@ private:
     int m_bleu;
     
 };
+
+bool operator== (PixelPPM const &pix1, PixelPPM const &pix2)
+{
+    return pix1.getString() == pix2.getString();
+}
 
 #endif /* defined(__algoprog_tp1__PixelPPM__) */

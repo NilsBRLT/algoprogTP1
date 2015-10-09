@@ -16,6 +16,6 @@ Pixel::~Pixel() {
     
 }
 
-string Pixel::getString() {
+string Pixel::getString() const {
     return "0";
 }

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string>
 #include "Pixel.h"
+#include "PixelPPM.h"
 
 using namespace std;
 
@@ -20,12 +21,17 @@ public:
     PixelPBM(int valeur);
     ~PixelPBM();
     
-    string getString();
+    string getString() const;
     int getValeur();
     
 private:
     int m_valeur;
     
 };
+
+bool operator== (PixelPBM const &pix1, PixelPBM const &pix2)
+{
+    return pix1.getString() == pix2.getString();
+}
 
 #endif /* defined(__algoprog_tp1__PixelPBM__) */

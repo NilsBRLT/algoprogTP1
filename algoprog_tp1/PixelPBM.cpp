@@ -18,7 +18,7 @@ PixelPBM::~PixelPBM() {
     
 }
 
-string PixelPBM::getString() {
+string PixelPBM::getString() const {
     return to_string(m_valeur);
 }
 

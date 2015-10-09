@@ -20,7 +20,7 @@ PixelPPM::~PixelPPM() {
     
 }
 
-string PixelPPM::getString() {
+string PixelPPM::getString() const {
     return to_string(m_rouge) + " " + to_string(m_vert) + " " + to_string(m_bleu);
 }
 
