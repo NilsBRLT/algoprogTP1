@@ -24,15 +24,24 @@ int Image::read(string filepath) {
     
     if (ifs.is_open()) {
         string ligne = "";
-        int positionFichierLigne = 0;
+        int numeroLigne = 0;
         
         char c = ifs.get();
         while (ifs.good()) {
             ligne += c;
             if (c == '\n') {
-                analyseLigne(ligne, positionFichierLigne);
-                positionFichierLigne++;
+                if (numeroLigne == 0) {
+                    m_type = ligne;
+                } else if (numeroLigne == 1) {
+                    size_t pos = ligne.find(" ");
+                    m_largeur = stoi(ligne.substr(0, pos));
+                    m_hauteur = stoi(ligne.substr(pos));
+                }
+                numeroLigne++;
                 ligne = "";
+            }
+            if ((c == '0' || c == '1') && numeroLigne >= 2) {
+                m_pixels.push_back(c);
             }
             c = ifs.get();
         }
@@ -55,23 +64,6 @@ int Image::read(string filepath) {
     return 0;
 }
 
-void Image::analyseLigne(string ligne, int position) {
-    if (position == 0) {
-        m_type = ligne;
-        return;
-    } else if (position == 1) {
-        size_t pos = ligne.find(" ");
-        m_largeur = stoi(ligne.substr(0, pos));
-        m_hauteur = stoi(ligne.substr(pos));
-        return;
-    } else {
-        for (unsigned int i = 0; i < ligne.length(); i++) {
-            char c = ligne[i];
-            if (c == '0' || c == '1')
-                m_pixels.push_back(ligne[i] - '0');
-        }
-    }
-}
 
 void Image::generer(int largeur, int hauteur) {
     m_largeur = largeur;
