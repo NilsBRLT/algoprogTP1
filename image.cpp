@@ -159,13 +159,13 @@ void Image::write(string filepath) {
 Maillon* Image::findSet(Pixel pixel) {
     for (int i=0; i<m_sets.size(); i++) {
         
-        for (Maillon maillon = m_sets[i]; maillon.getSuivant() != nullptr ; maillon.getSuivant()) {
-            if (maillon.getPixel() == pixel) {
+        for (Maillon* maillon = m_sets[i]; maillon->getSuivant() != nullptr ; maillon->getSuivant()) {
+            if (maillon->getPixel().getString() == pixel.getString()) {
                 return maillon;
             }
         }
 //        test purpose
-        cout << m_sets[i].getRepresentant() << " ";
+        cout << m_sets[i]->getRepresentant() << " ";
     }
     return nullptr;
 }

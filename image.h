@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "PixelPBM.h"
 #include "Pixel.h"
-#include "maillon.h"
+#include "Maillon.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ private:
     int m_largeur;
     int m_hauteur;
     vector<Pixel> m_pixels;
-    vector<*Maillon> m_sets;
+    vector<Maillon*> m_sets;
     
     int compteChiffresDansNombre(int nombre);
 };

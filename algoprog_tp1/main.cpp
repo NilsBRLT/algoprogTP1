@@ -21,14 +21,13 @@
 
 int main () {
     Image image = Image();
-    image.read(IMAGE_IN_PA);
-//    image.read(IMAGE_IN_NILS);
     
+    image.read(IMAGE_IN_NILS);
+    //image.read(IMAGE_IN_PA);
     
-//    image.write(IMAGE_OUT_NILS);
     image.generer(5, 5);
-//        image.write(IMAGE_OUT_NILS);
-    image.write(IMAGE_OUT_PA);
+    image.write(IMAGE_OUT_NILS);
+    //image.write(IMAGE_OUT_PA);
     
     
     
@@ -41,12 +40,6 @@ int main () {
     vector<Pixel> v;
     v.push_back(pix);
     v.push_back(pix2);
-    
-    PixelPBM pix3 = PixelPBM(1);
-    PixelPBM pix4 = PixelPBM(0);
-    
-    cout << "Egalité 1 (0 == 0): " << (pix == pix4) << endl;
-    cout << "Egalité 2 (0 == 1): " << (pix == pix3) << endl;
     
     return 0;
 }

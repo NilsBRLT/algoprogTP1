@@ -34,9 +34,4 @@ private:
     
 };
 
-bool operator== (PixelPPM const &pix1, PixelPPM const &pix2)
-{
-    return pix1.getString() == pix2.getString();
-}
-
 #endif /* defined(__algoprog_tp1__PixelPPM__) */

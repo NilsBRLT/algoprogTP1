@@ -29,9 +29,4 @@ private:
     
 };
 
-bool operator== (PixelPBM const &pix1, PixelPBM const &pix2)
-{
-    return pix1.getString() == pix2.getString();
-}
-
 #endif /* defined(__algoprog_tp1__PixelPBM__) */
