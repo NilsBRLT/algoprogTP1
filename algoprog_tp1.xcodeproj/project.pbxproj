@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2942D6E91BC7A708007A03FB /* PixelPPM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2942D6E71BC7A708007A03FB /* PixelPPM.cpp */; };
 		29A30CD21BBD514200F0050B /* maillon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A30CD01BBD514200F0050B /* maillon.cpp */; };
 		29BA4C101BC5CD710047C698 /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29BA4C0E1BC5CD710047C698 /* Pixel.cpp */; };
-		29BA4C131BC5CF150047C698 /* PixelPBM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29BA4C111BC5CF150047C698 /* PixelPBM.cpp */; };
 		5DDE745A1BBC461D00260B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74591BBC461D00260B11 /* main.cpp */; };
 		5DDE74631BBC5C6A00260B11 /* image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74611BBC5C6A00260B11 /* image.cpp */; };
 /* End PBXBuildFile section */
@@ -28,14 +26,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2942D6E71BC7A708007A03FB /* PixelPPM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelPPM.cpp; sourceTree = "<group>"; };
-		2942D6E81BC7A708007A03FB /* PixelPPM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelPPM.h; sourceTree = "<group>"; };
 		29A30CD01BBD514200F0050B /* maillon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maillon.cpp; sourceTree = "<group>"; };
 		29A30CD11BBD514200F0050B /* maillon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maillon.h; sourceTree = "<group>"; };
 		29BA4C0E1BC5CD710047C698 /* Pixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
 		29BA4C0F1BC5CD710047C698 /* Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixel.h; sourceTree = "<group>"; };
-		29BA4C111BC5CF150047C698 /* PixelPBM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelPBM.cpp; sourceTree = "<group>"; };
-		29BA4C121BC5CF150047C698 /* PixelPBM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelPBM.h; sourceTree = "<group>"; };
 		5DDE74561BBC461D00260B11 /* algoprog_tp1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algoprog_tp1; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDE74591BBC461D00260B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = algoprog_tp1/main.cpp; sourceTree = SOURCE_ROOT; };
 		5DDE74601BBC473E00260B11 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -78,10 +72,6 @@
 				5DDE74621BBC5C6A00260B11 /* image.h */,
 				29BA4C0E1BC5CD710047C698 /* Pixel.cpp */,
 				29BA4C0F1BC5CD710047C698 /* Pixel.h */,
-				29BA4C111BC5CF150047C698 /* PixelPBM.cpp */,
-				29BA4C121BC5CF150047C698 /* PixelPBM.h */,
-				2942D6E71BC7A708007A03FB /* PixelPPM.cpp */,
-				2942D6E81BC7A708007A03FB /* PixelPPM.h */,
 				5DDE74591BBC461D00260B11 /* main.cpp */,
 				29A30CD01BBD514200F0050B /* maillon.cpp */,
 				29A30CD11BBD514200F0050B /* maillon.h */,
@@ -146,10 +136,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				29BA4C101BC5CD710047C698 /* Pixel.cpp in Sources */,
-				29BA4C131BC5CF150047C698 /* PixelPBM.cpp in Sources */,
 				5DDE745A1BBC461D00260B11 /* main.cpp in Sources */,
 				29A30CD21BBD514200F0050B /* maillon.cpp in Sources */,
-				2942D6E91BC7A708007A03FB /* PixelPPM.cpp in Sources */,
 				5DDE74631BBC5C6A00260B11 /* image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

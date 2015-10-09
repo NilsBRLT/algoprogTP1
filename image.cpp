@@ -22,6 +22,7 @@ int Image::read(string filepath) {
     ifs.open (filepath, std::ifstream::in);
     
     if (ifs.is_open()) {
+        srand(time_t(NULL));
         string ligne = "";
         int numeroLigne = 0;
         
@@ -40,7 +41,7 @@ int Image::read(string filepath) {
                 ligne = "";
             }
             if ((c == '0' || c == '1') && numeroLigne >= 2) {
-                PixelPBM pix = PixelPBM((int)c - '0');
+                Pixel pix = Pixel(rand() % 255, rand() % 255, rand() % 255);
                 m_pixels.push_back(pix);
 
             }
@@ -48,12 +49,14 @@ int Image::read(string filepath) {
         }
         
         // Début affichage pour test
+        /*
         for (unsigned i=0; i < m_hauteur; i++) {
             for (unsigned j=0; j < m_largeur; j++) {
                 cout << m_pixels[j+i*m_largeur].getString() << " ";
             }
             cout << '\n';
         }
+        */
     }
     else {
         // show message:
@@ -75,8 +78,8 @@ void Image::generer(int largeur, int hauteur) {
     srand(time_t(NULL));
     
     for (int i=0; i<m_largeur*m_hauteur; i++) {
-        // Création d'un chiffre aléatoire (0 ou 1)
-        PixelPBM pix = PixelPBM(rand() % 2);
+        int color = rand() % 2;
+        Pixel pix = Pixel(color, color, color);
         m_pixels.push_back(pix);
     }
 }

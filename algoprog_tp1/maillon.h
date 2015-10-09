@@ -12,10 +12,6 @@
 #include <stdio.h>
 #include "Pixel.h"
 
-#define INDICE_ROUGE 0
-#define INDICE_VERT 1
-#define INDICE_BLEU 2
-
 class Maillon {
     
 private:

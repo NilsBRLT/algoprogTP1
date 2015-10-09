@@ -14,7 +14,6 @@
 #include <vector>
 #include <time.h>
 #include <stdio.h>
-#include "PixelPBM.h"
 #include "Pixel.h"
 #include "Maillon.h"
 

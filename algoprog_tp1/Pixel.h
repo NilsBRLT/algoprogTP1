@@ -12,18 +12,23 @@
 #include <stdio.h>
 #include <string>
 
-// Classe abstraite Pixel
-
 using namespace std;
 
 class Pixel {
 public:
     Pixel();
+    Pixel(int rouge, int vert, int bleu);
     ~Pixel();
     
     string getString() const;
-
+    int getRouge();
+    int getVert();
+    int getBleu();
+    
 private:
+    int m_rouge;
+    int m_vert;
+    int m_bleu;
     
 };
 

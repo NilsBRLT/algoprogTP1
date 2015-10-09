@@ -9,8 +9,6 @@
 // print the content of a text file.
 
 #include "image.h"
-#include "PixelPBM.h"
-#include "PixelPPM.h"
 #include "Pixel.h"
 #include <vector>
 
@@ -28,18 +26,6 @@ int main () {
     image.generer(5, 5);
     image.write(IMAGE_OUT_NILS);
     //image.write(IMAGE_OUT_PA);
-    
-    
-    
-    // TESTS DES CLASSES DE PIXELS
-    
-    PixelPBM pix = PixelPBM(0);
-    PixelPPM pix2 = PixelPPM(0,0,0);
-    cout << "J'ai donc : " << pix.getString() << endl;
-    cout << "J'ai donc : " << pix2.getString() << endl;
-    vector<Pixel> v;
-    v.push_back(pix);
-    v.push_back(pix2);
     
     return 0;
 }

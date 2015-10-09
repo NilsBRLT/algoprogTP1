@@ -8,8 +8,15 @@
 
 #include "Pixel.h"
 
+
 Pixel::Pixel() {
     
+}
+
+Pixel::Pixel(int rouge, int vert, int bleu) {
+    m_rouge = rouge;
+    m_vert = vert;
+    m_bleu = bleu;
 }
 
 Pixel::~Pixel() {
@@ -17,5 +24,17 @@ Pixel::~Pixel() {
 }
 
 string Pixel::getString() const {
-    return "0";
+    return to_string(m_rouge) + " " + to_string(m_vert) + " " + to_string(m_bleu);
+}
+
+int Pixel::getRouge() {
+    return m_rouge;
+}
+
+int Pixel::getVert() {
+    return m_vert;
+}
+
+int Pixel::getBleu() {
+    return m_bleu;
 }
