@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Porlat. All rights reserved.
 //
 
-#ifndef __algoprog_tp1__maillon__
-#define __algoprog_tp1__maillon__
+#ifndef __algoprog_tp1__Maillon__
+#define __algoprog_tp1__Maillon__
 
 #include <stdio.h>
 #include "Pixel.h"
@@ -28,10 +28,13 @@ public:
     void setPixel(Pixel* pixel);
     void setSuivant(Maillon* suivant);
     void setRepresentant(Maillon* representant);
-    
+
+    bool sameEnsemble(Maillon* maillon);
+    void unionSet(Maillon* reprensentant2);
+
     Pixel* getPixel();
     Maillon* getSuivant();
     Maillon* getRepresentant();
 };
 
-#endif /* defined(__algoprog_tp1__maillon__) */
+#endif /* defined(__algoprog_tp1__Maillon__) */

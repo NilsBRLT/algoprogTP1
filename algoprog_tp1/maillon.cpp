@@ -52,3 +52,34 @@ Maillon* Maillon::getSuivant() {
 Maillon* Maillon::getRepresentant() {
     return m_representant;
 }
+
+bool Maillon::sameEnsemble(Maillon *maillon) {
+    return (getRepresentant() == maillon->getRepresentant());
+}
+
+void Maillon::unionSet(Maillon* representant2) {
+    
+    //    if (representant1.getRepresentant()->getPixel() == reprensentant2.getRepresentant()->getPixel()) {
+    //        // Ensemble non disjoint
+    //        // Throw error (précond)
+    //    }
+    //    if (representant1.getRepresentant()->getPixel() != representant1.getPixel()
+    //        || representant2.getRepresentant()->getPixel() != representant2.getPixel()) {
+    //        // Reprensentants ne sont pas représentant (au moins un des deux
+    //        // Throw error ou prendre son représentant ?
+    //    }
+    
+    Maillon* elemS1 = new Maillon(this);
+    Maillon* elemS2 = new Maillon(representant2);
+    
+    // On veut prendre le dernier de la liste pour lui ajouter les suivants
+    while (elemS1->getSuivant() != nullptr) {
+        elemS1 = elemS1->getSuivant();
+    }
+    elemS1->setSuivant(elemS2);
+    while (elemS2->getSuivant() != nullptr) {
+        elemS2->setRepresentant(this);
+        elemS2->setPixel(this->getPixel());
+        elemS2 = representant2->getSuivant();
+    }
+}

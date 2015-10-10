@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <string>
+#include "Maillon.h"
 
 using namespace std;
 
@@ -27,8 +28,10 @@ public:
     int getBleu();
     int getLigne();
     int getColonne();
+    Maillon* getMaillon();
     
     void setLigne(int ligne);
+    void setMaillon(Maillon *maillon);
     void setColonne(int colonne);
     
 private:
@@ -37,6 +40,7 @@ private:
     int m_bleu;
     int m_ligne;
     int m_colonne;
+    Maillon* m_maillon;
     
 };
 

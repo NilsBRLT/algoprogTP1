@@ -15,7 +15,6 @@
 #include <time.h>
 #include <stdio.h>
 #include "Pixel.h"
-#include "Maillon.h"
 
 using namespace std;
 
@@ -34,7 +33,6 @@ public:
     Maillon* findSet(Pixel* pixel);
     void colorierImage();
     void write(string filepath);
-    void unionSet(Maillon* representant1, Maillon* reprensentant2);
 private:
     string m_type;
     int m_largeur;

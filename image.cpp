@@ -195,33 +195,6 @@ Maillon* Image::makeSet(Pixel* pixel) {
     return new Maillon(pixel);
 }
 
-void Image::unionSet(Maillon* representant1, Maillon* representant2) {
-    
-//    if (representant1.getRepresentant()->getPixel() == reprensentant2.getRepresentant()->getPixel()) {
-//        // Ensemble non disjoint
-//        // Throw error (précond)
-//    }
-//    if (representant1.getRepresentant()->getPixel() != representant1.getPixel()
-//        || representant2.getRepresentant()->getPixel() != representant2.getPixel()) {
-//        // Reprensentants ne sont pas représentant (au moins un des deux
-//        // Throw error ou prendre son représentant ?
-//    }
-
-    Maillon* elemS1 = new Maillon(representant1);
-    Maillon* elemS2 = new Maillon(representant2);
-
-    // On veut prendre le dernier de la liste pour lui ajouter les suivants
-    while (elemS1->getSuivant() != nullptr) {
-        elemS1 = elemS1->getSuivant();
-    }
-    elemS1->setSuivant(elemS2);
-    while (elemS2->getSuivant() != nullptr) {
-        elemS2->setRepresentant(representant1);
-        elemS2->setPixel(representant1->getPixel());
-        elemS2 = representant2->getSuivant();
-    }
-}
-
 void Image::colorierImage() {
 //    Boucler sur les pixels de l'image
 //    pour créer l'ensemble de set et peupler m_sets
@@ -234,14 +207,35 @@ void Image::colorierImage() {
 //        }
 //
     for (int i = 0; i < m_pixels.size(); i++) {
-        Maillon* maillon = makeSet(m_pixels[i]);
+        Maillon* maillon = makeSet(&m_pixels[i]);
         m_sets.push_back(maillon);
     }
+    // TODO: Boucler sur les pixels et plus les sets
+    // Comme un pixel connait son set
     for (int i = 0; i < m_sets.size(); i++) {
-        Maillon set = m_sets[i];
-        if (set.getPixel().isBlanc()) {
+        Maillon maillon = m_sets[i];
+        if (maillon.getPixel()->isBlanc()) {
             // gauche
-            if (m_pixels[set.getPixel().getColonne() + set.getPixel().getLigne()*m_largeur-1]) {
+            if (maillon.getPixel()->getColonne() > 0
+                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1].isBlanc()) {
+                // si ils sont de sets différents on fusionne
+                if (!maillon.sameEnsemble(m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1].getMaillon()) {
+                    maillon.unionSet(m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1]->getMaillon());
+                }
+            }
+            // droite
+            if (maillon.getPixel()->getColonne() < m_largeur-1
+                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur+1].isBlanc()) {
+                
+            }
+            // bas
+            if (maillon.getPixel()->getLigne() < m_hauteur-1
+                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*(m_largeur+1)].isBlanc()) {
+                
+            }
+            // bas
+            if (maillon.getPixel()->getLigne() > 0
+                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*(m_largeur-1)].isBlanc()) {
                 
             }
         }

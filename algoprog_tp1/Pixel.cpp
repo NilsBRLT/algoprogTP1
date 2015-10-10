@@ -58,3 +58,11 @@ void Pixel::setLigne(int ligne) {
 void Pixel::setColonne(int colonne) {
     m_colonne = colonne;
 }
+
+Maillon* Pixel::getMaillon() {
+    return m_maillon;
+}
+
+void Pixel::setMaillon(Maillon* maillon) {
+    m_maillon = maillon;
+}
