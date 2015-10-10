@@ -31,7 +31,7 @@ int Image::read(string filepath) {
         int colonne = 0;
         
         while (ifs.good()) {
-            ligne += c;
+            bufferLigne += c;
             if (c == '\n') {
                 if (numeroLigne == 0) {
                     m_type = bufferLigne;
@@ -213,30 +213,39 @@ void Image::colorierImage() {
     // TODO: Boucler sur les pixels et plus les sets
     // Comme un pixel connait son set
     for (int i = 0; i < m_sets.size(); i++) {
-        Maillon maillon = m_sets[i];
-        if (maillon.getPixel()->isBlanc()) {
+        Maillon* maillon = m_sets[i];
+        if (maillon->getPixel()->isBlanc()) {
             // gauche
-            if (maillon.getPixel()->getColonne() > 0
-                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1].isBlanc()) {
+            if (maillon->getPixel()->getColonne() > 0
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].isBlanc()) {
                 // si ils sont de sets différents on fusionne
-                if (!maillon.sameEnsemble(m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1].getMaillon()) {
-                    maillon.unionSet(m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur-1]->getMaillon());
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
                 }
             }
             // droite
-            if (maillon.getPixel()->getColonne() < m_largeur-1
-                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*m_largeur+1].isBlanc()) {
-                
+            if (maillon->getPixel()->getColonne() < m_largeur-1
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].isBlanc()) {
+                // si ils sont de sets différents on fusionne
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                }
             }
             // bas
-            if (maillon.getPixel()->getLigne() < m_hauteur-1
-                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*(m_largeur+1)].isBlanc()) {
-                
+            if (maillon->getPixel()->getLigne() < m_hauteur-1
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*(m_largeur+1)].isBlanc()) {
+                // si ils sont de sets différents on fusionne
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                }
             }
             // bas
-            if (maillon.getPixel()->getLigne() > 0
-                && m_pixels[maillon.getPixel()->getColonne() + maillon.getPixel()->getLigne()*(m_largeur-1)].isBlanc()) {
-                
+            if (maillon->getPixel()->getLigne() > 0
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*(m_largeur-1)].isBlanc()) {
+                // si ils sont de sets différents on fusionne
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                }
             }
         }
     }

@@ -11,10 +11,9 @@
 
 #include <stdio.h>
 #include <string>
-#include "Maillon.h"
 
 using namespace std;
-
+class Maillon;
 class Pixel {
 public:
     Pixel();

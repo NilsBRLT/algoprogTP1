@@ -15,6 +15,7 @@
 #include <time.h>
 #include <stdio.h>
 #include "Pixel.h"
+#include "Maillon.h"
 
 using namespace std;
 
