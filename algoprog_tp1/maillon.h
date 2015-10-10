@@ -15,21 +15,21 @@
 class Maillon {
     
 private:
-    Pixel m_pixel;
+    Pixel* m_pixel;
     Maillon* m_suivant;
     Maillon* m_representant;
 public:
     Maillon();
     Maillon(Maillon* maillon);
-    Maillon(Pixel pixel);
-    Maillon(Pixel pixel, Maillon* suivant, Maillon* representant);
+    Maillon(Pixel* pixel);
+    Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant);
     ~Maillon();
     
     void setPixel(Pixel pixel);
     void setSuivant(Maillon* suivant);
     void setRepresentant(Maillon* representant);
     
-    Pixel getPixel();
+    Pixel* getPixel();
     Maillon* getSuivant();
     Maillon* getRepresentant();
 };

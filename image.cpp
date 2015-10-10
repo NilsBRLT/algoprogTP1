@@ -23,28 +23,38 @@ int Image::read(string filepath) {
     
     if (ifs.is_open()) {
 //        srand(time_t(NULL));
-        string ligne = "";
+        string bufferLigne = "";
         int numeroLigne = 0;
         
         char c = ifs.get();
+        int ligne = 0;
+        int colonne = 0;
+        
         while (ifs.good()) {
             ligne += c;
             if (c == '\n') {
                 if (numeroLigne == 0) {
-                    m_type = ligne;
+                    m_type = bufferLigne;
                 } else if (numeroLigne == 1) {
-                    size_t pos = ligne.find(" ");
-                    m_largeur = stoi(ligne.substr(0, pos));
-                    m_hauteur = stoi(ligne.substr(pos));
+                    size_t pos = bufferLigne.find(" ");
+                    m_largeur = stoi(bufferLigne.substr(0, pos));
+                    m_hauteur = stoi(bufferLigne.substr(pos));
                 }
                 numeroLigne++;
-                ligne = "";
+                bufferLigne = "";
             }
             if ((c == '0' || c == '1') && numeroLigne >= 2) {
                 int val = (int) c - '0';
                 val = val*NB_COULEURS; // Gérer la couleur noir
                 Pixel pix = Pixel(val, val, val);
+                pix.setColonne(colonne);
+                pix.setLigne(ligne);
                 m_pixels.push_back(pix);
+                colonne++;
+                if (colonne >= m_largeur) {
+                    colonne = 0;
+                    ligne++;
+                }
             }
             c = ifs.get();
         }
@@ -70,22 +80,6 @@ int Image::read(string filepath) {
     return 0;
 }
 
-
-Image Image::genererPpm() {
-    Image ppm;
-    m_type = CODE_PPM;
-    
-    srand(time_t(NULL));
-    
-    for (int i=0; i<m_largeur*m_hauteur; i++) {
-        Maillon* maillon = makeSet(m_pixels[i]);
-        m_sets.push_back(maillon);
-//        int color = rand() % 2;
-//        Pixel pix = Pixel(color, color, color);
-//        m_pixels.push_back(pix);
-    }
-    return ppm;
-}
 void Image::generer(int largeur, int hauteur) {
     m_largeur = largeur;
     m_hauteur = hauteur;
@@ -232,6 +226,26 @@ void Image::colorierImage() {
 //    Boucler sur les pixels de l'image
 //    pour créer l'ensemble de set et peupler m_sets
 //    Unioner les sets blabla...
+//    for (int l=0; l<m_largeur; l++) {
+//        for (int h = 0; h<m_hauteur; h++) {
+//            if (m_pixels)
+//            Maillon* maillon = makeSet(m_pixels[l+h*m_largeur]);
+//            m_sets.push_back(maillon);
+//        }
+//
+    for (int i = 0; i < m_pixels.size(); i++) {
+        Maillon* maillon = makeSet(m_pixels[i]);
+        m_sets.push_back(maillon);
+    }
+    for (int i = 0; i < m_sets.size(); i++) {
+        Maillon set = m_sets[i];
+        if (set.getPixel().isBlanc()) {
+            // gauche
+            if (m_pixels[set.getPixel().getColonne() + set.getPixel().getLigne()*m_largeur-1]) {
+                
+            }
+        }
+    }
 }
 
 int Image::compteChiffresDansNombre(int nombre) {

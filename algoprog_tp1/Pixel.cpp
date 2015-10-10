@@ -38,3 +38,19 @@ int Pixel::getVert() {
 int Pixel::getBleu() {
     return m_bleu;
 }
+
+int Pixel::getLigne() {
+    return m_ligne;
+}
+
+int Pixel::getColonne() {
+    return m_colonne;
+}
+
+void Pixel::setLigne(int ligne) {
+    m_ligne = ligne;
+}
+
+void Pixel::setColonne(int colonne) {
+    m_colonne = colonne;
+}
