@@ -66,3 +66,9 @@ Maillon* Pixel::getMaillon() {
 void Pixel::setMaillon(Maillon* maillon) {
     m_maillon = maillon;
 }
+
+void Pixel::setCouleur(int rouge, int vert, int bleu) {
+    m_rouge = rouge;
+    m_vert = vert;
+    m_bleu = bleu;
+}

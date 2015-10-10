@@ -21,6 +21,8 @@ Maillon::Maillon(Maillon* maillon) {
 
 Maillon::Maillon(Pixel* pixel) {
     setPixel(pixel);
+    setRepresentant(this);
+    pixel->setMaillon(this);
 }
 
 Maillon::Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant) {
@@ -79,7 +81,8 @@ void Maillon::unionSet(Maillon* representant2) {
     elemS1->setSuivant(elemS2);
     while (elemS2->getSuivant() != nullptr) {
         elemS2->setRepresentant(this);
-        elemS2->setPixel(this->getPixel());
+        elemS2->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
+//        elemS2->setPixel(this->getPixel());
         elemS2 = representant2->getSuivant();
     }
 }

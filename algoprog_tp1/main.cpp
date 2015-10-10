@@ -18,6 +18,9 @@
 #define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/nils_out.ppm"
 
 int main () {
+    
+    srand(time_t(NULL));
+
     Image image = Image();
     
 //    image.read(IMAGE_IN_NILS);

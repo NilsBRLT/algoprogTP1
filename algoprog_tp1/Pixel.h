@@ -30,6 +30,7 @@ public:
     Maillon* getMaillon();
     
     void setLigne(int ligne);
+    void setCouleur(int rouge, int vert, int bleu);
     void setMaillon(Maillon *maillon);
     void setColonne(int colonne);
     

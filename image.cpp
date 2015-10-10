@@ -43,9 +43,11 @@ int Image::read(string filepath) {
                 numeroLigne++;
                 bufferLigne = "";
             }
-            if ((c == '0' || c == '1') && numeroLigne >= 2) {
-                int val = (int) c - '0';
-                val = val*NB_COULEURS; // Gérer la couleur noir
+            if ((c == '0' || c == '1' ) && numeroLigne >= 2) {
+                int val = 0;
+                if (c == '0') {
+                    val = NB_COULEURS; // Blanc
+                }
                 Pixel pix = Pixel(val, val, val);
                 pix.setColonne(colonne);
                 pix.setLigne(ligne);
@@ -87,7 +89,6 @@ void Image::generer(int largeur, int hauteur) {
         m_type = CODE_PPM;
         
         m_pixels.clear();
-        srand(time_t(NULL));
         
         for (int i=0; i<m_largeur*m_hauteur; i++) {
 
@@ -133,7 +134,6 @@ void Image::write(string filepath) {
         
         // ECRITURE DU HEADER DANS LE FICHIER
         ofs.write(type, sizeof(type));
-        ofs.write(retourLigne, sizeof(retourLigne));
         ofs.write(largeur, sizeof(largeur));
         ofs.write(espace, sizeof(espace));
         ofs.write(hauteur, sizeof(hauteur));
@@ -150,10 +150,10 @@ void Image::write(string filepath) {
             char* pixel = (char*)malloc(sizeof(pixelString));
             strcpy(pixel, pixelString.c_str());
             
-            // Espace si (i % 5) == 0
-            if (i % 5 == 0 && i != 0) {
-                ofs.write(retourLigne, sizeof(retourLigne));
-            }
+//            // Espace si (i % 5) == 0
+//            if (i % 5 == 0 && i != 0) {
+//                ofs.write(retourLigne, sizeof(retourLigne));
+//            }
             
             // Écriture
             ofs.write(pixel, sizeof(pixel));
@@ -192,6 +192,7 @@ Maillon* Image::findSet(Pixel* pixel) {
 }
 
 Maillon* Image::makeSet(Pixel* pixel) {
+    pixel->setCouleur(rand()%255, rand()%255, rand()%255);
     return new Maillon(pixel);
 }
 
@@ -206,9 +207,12 @@ void Image::colorierImage() {
 //            m_sets.push_back(maillon);
 //        }
 //
+    m_type = CODE_PPM;
     for (int i = 0; i < m_pixels.size(); i++) {
-        Maillon* maillon = makeSet(&m_pixels[i]);
-        m_sets.push_back(maillon);
+        if (m_pixels[i].isBlanc()) {
+            Maillon* maillon = makeSet(&m_pixels[i]);
+            m_sets.push_back(maillon);
+        }
     }
     // TODO: Boucler sur les pixels et plus les sets
     // Comme un pixel connait son set
@@ -227,24 +231,24 @@ void Image::colorierImage() {
             if (maillon->getPixel()->getColonne() < m_largeur-1
                 && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].isBlanc()) {
                 // si ils sont de sets différents on fusionne
-                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].getMaillon());
                 }
             }
             // bas
             if (maillon->getPixel()->getLigne() < m_hauteur-1
-                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*(m_largeur+1)].isBlanc()) {
+                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].isBlanc()) {
                 // si ils sont de sets différents on fusionne
-                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].getMaillon());
                 }
             }
-            // bas
+            // haut
             if (maillon->getPixel()->getLigne() > 0
-                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*(m_largeur-1)].isBlanc()) {
+                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].isBlanc()) {
                 // si ils sont de sets différents on fusionne
-                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].getMaillon())) {
+                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].getMaillon());
                 }
             }
         }
