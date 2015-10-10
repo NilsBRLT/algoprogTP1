@@ -20,12 +20,15 @@
 int main () {
     Image image = Image();
     
-//    image.read(IMAGE_IN_NILS);
-    image.read(IMAGE_IN_PA);
+    image.read(IMAGE_IN_NILS);
+//    image.read(IMAGE_IN_PA);
+    
+    image.colorierImage();
     
 //    image.generer(5, 5);
-//    image.write(IMAGE_OUT_NILS);
-    image.write(IMAGE_OUT_PA);
+    image.write(IMAGE_OUT_NILS);
+//    image.write(IMAGE_OUT_PA);
+    
     
     return 0;
 }

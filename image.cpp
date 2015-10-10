@@ -220,7 +220,7 @@ void Image::unionSet(Maillon* representant1, Maillon* representant2) {
     while (elemS1->getSuivant() != nullptr) {
         elemS1 = elemS1->getSuivant();
     }
-    elemS1->setSuivant(elemS2)
+    elemS1->setSuivant(elemS2);
     while (elemS2->getSuivant() != nullptr) {
         elemS2->setRepresentant(representant1);
         elemS2->setPixel(representant1->getPixel());
