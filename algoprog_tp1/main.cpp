@@ -14,18 +14,18 @@
 
 #define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/nils.pbm"
 #define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/nils.pbm"
-#define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/nils_out.pbm"
-#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/nils_out.pbm"
+#define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/nils_out.ppm"
+#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/nils_out.ppm"
 
 int main () {
     Image image = Image();
     
-    image.read(IMAGE_IN_NILS);
-    //image.read(IMAGE_IN_PA);
+//    image.read(IMAGE_IN_NILS);
+    image.read(IMAGE_IN_PA);
     
-    image.generer(5, 5);
-    image.write(IMAGE_OUT_NILS);
-    //image.write(IMAGE_OUT_PA);
+//    image.generer(5, 5);
+//    image.write(IMAGE_OUT_NILS);
+    image.write(IMAGE_OUT_PA);
     
     return 0;
 }

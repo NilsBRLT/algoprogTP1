@@ -19,10 +19,10 @@ int Image::read(string filepath) {
     std::ifstream ifs;
     // Doesn't work with relative path... Investigate later
     // This issue seems to be on Mac only.
-    ifs.open (filepath, std::ifstream::in);
+    ifs.open (filepath, ifstream::in);
     
     if (ifs.is_open()) {
-        srand(time_t(NULL));
+//        srand(time_t(NULL));
         string ligne = "";
         int numeroLigne = 0;
         
@@ -41,22 +41,24 @@ int Image::read(string filepath) {
                 ligne = "";
             }
             if ((c == '0' || c == '1') && numeroLigne >= 2) {
-                Pixel pix = Pixel(rand() % 255, rand() % 255, rand() % 255);
+                int val = (int) c - '0';
+                val = val*NB_COULEURS; // Gérer la couleur noir
+                Pixel pix = Pixel(val, val, val);
                 m_pixels.push_back(pix);
-
             }
             c = ifs.get();
         }
+        cout << '\n';
         
         // Début affichage pour test
-        /*
+        
         for (unsigned i=0; i < m_hauteur; i++) {
             for (unsigned j=0; j < m_largeur; j++) {
                 cout << m_pixels[j+i*m_largeur].getString() << " ";
             }
             cout << '\n';
         }
-        */
+        
     }
     else {
         // show message:
@@ -69,23 +71,39 @@ int Image::read(string filepath) {
 }
 
 
-void Image::generer(int largeur, int hauteur) {
-    m_largeur = largeur;
-    m_hauteur = hauteur;
+Image Image::genererPpm() {
+    Image ppm;
     m_type = CODE_PPM;
     
-    m_pixels.clear();
     srand(time_t(NULL));
     
     for (int i=0; i<m_largeur*m_hauteur; i++) {
-        int color = rand() % 2;
-        Pixel pix = Pixel(color, color, color);
-        m_pixels.push_back(pix);
+        Maillon* maillon = makeSet(m_pixels[i]);
+        m_sets.push_back(maillon);
+//        int color = rand() % 2;
+//        Pixel pix = Pixel(color, color, color);
+//        m_pixels.push_back(pix);
     }
+    return ppm;
 }
+void Image::generer(int largeur, int hauteur) {
+    m_largeur = largeur;
+    m_hauteur = hauteur;
+
+        m_type = CODE_PPM;
+        
+        m_pixels.clear();
+        srand(time_t(NULL));
+        
+        for (int i=0; i<m_largeur*m_hauteur; i++) {
+
+                    int color = rand() % 2;
+                    Pixel pix = Pixel(color, color, color);
+                    m_pixels.push_back(pix);
+        }
+    }
 
 void Image::write(string filepath) {
-    
     // Création d'un fichier (mode out)
     std::ofstream ofs;
     ofs.open (filepath, std::ofstream::out);
@@ -134,6 +152,7 @@ void Image::write(string filepath) {
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
             string pixelString = m_pixels[i].getString();
+            cout << pixelString << " ";
             char* pixel = (char*)malloc(sizeof(pixelString));
             strcpy(pixel, pixelString.c_str());
             
@@ -178,8 +197,35 @@ Maillon* Image::findSet(Pixel pixel) {
     return nullptr;
 }
 
-Maillon* Image::makeSet(Pixel* pixel) {
-    return new Maillon(*pixel);
+Maillon* Image::makeSet(Pixel pixel) {
+    return new Maillon(pixel);
+}
+
+void Image::unionSet(Maillon* representant1, Maillon* representant2) {
+    
+//    if (representant1.getRepresentant()->getPixel() == reprensentant2.getRepresentant()->getPixel()) {
+//        // Ensemble non disjoint
+//        // Throw error (précond)
+//    }
+//    if (representant1.getRepresentant()->getPixel() != representant1.getPixel()
+//        || representant2.getRepresentant()->getPixel() != representant2.getPixel()) {
+//        // Reprensentants ne sont pas représentant (au moins un des deux
+//        // Throw error ou prendre son représentant ?
+//    }
+
+    Maillon* elemS1 = new Maillon(representant1);
+    Maillon* elemS2 = new Maillon(representant2);
+
+    // On veut prendre le dernier de la liste pour lui ajouter les suivants
+    while (elemS1->getSuivant() != nullptr) {
+        elemS1 = elemS1->getSuivant();
+    }
+    elemS1->setSuivant(elemS2)
+    while (elemS2->getSuivant() != nullptr) {
+        elemS2->setRepresentant(representant1);
+        elemS2->setPixel(representant1->getPixel());
+        elemS2 = representant2->getSuivant();
+    }
 }
 
 void Image::colorierImage() {

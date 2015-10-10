@@ -28,17 +28,20 @@ public:
     Image();
     ~Image();
     int read(string filepath);
+    Image genererPpm();
     void generer(int largeur, int hauteur);
-    Maillon* makeSet(Pixel* pixel);
+    Maillon* makeSet(Pixel pixel);
     Maillon* findSet(Pixel pixel);
     void colorierImage();
     void write(string filepath);
+    void unionSet(Maillon* representant1, Maillon* reprensentant2);
 private:
     string m_type;
     int m_largeur;
     int m_hauteur;
     vector<Pixel> m_pixels;
     vector<Maillon*> m_sets;
+    
     
     int compteChiffresDansNombre(int nombre);
 };
