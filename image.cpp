@@ -177,11 +177,11 @@ void Image::write(string filepath) {
     ofs.close();
 }
 
-Maillon* Image::findSet(Pixel pixel) {
+Maillon* Image::findSet(Pixel* pixel) {
     for (int i=0; i<m_sets.size(); i++) {
         
         for (Maillon* maillon = m_sets[i]; maillon->getSuivant() != nullptr ; maillon->getSuivant()) {
-            if (maillon->getPixel().getString() == pixel.getString()) {
+            if (maillon->getPixel()->getString() == pixel->getString()) {
                 return maillon;
             }
         }
@@ -191,7 +191,7 @@ Maillon* Image::findSet(Pixel pixel) {
     return nullptr;
 }
 
-Maillon* Image::makeSet(Pixel pixel) {
+Maillon* Image::makeSet(Pixel* pixel) {
     return new Maillon(pixel);
 }
 

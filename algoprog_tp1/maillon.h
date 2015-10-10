@@ -25,7 +25,7 @@ public:
     Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant);
     ~Maillon();
     
-    void setPixel(Pixel pixel);
+    void setPixel(Pixel* pixel);
     void setSuivant(Maillon* suivant);
     void setRepresentant(Maillon* representant);
     

@@ -19,17 +19,17 @@ Maillon::Maillon(Maillon* maillon) {
     m_representant = maillon->getRepresentant();
 }
 
-Maillon::Maillon(Pixel pixel) {
+Maillon::Maillon(Pixel* pixel) {
     setPixel(pixel);
 }
 
-Maillon::Maillon(Pixel pixel, Maillon* suivant, Maillon* representant) {
+Maillon::Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant) {
     setPixel(pixel);
     setSuivant(suivant);
     setRepresentant(representant);
 }
 
-void Maillon::setPixel(Pixel pixel) {
+void Maillon::setPixel(Pixel* pixel) {
     m_pixel = pixel;
 }
 
@@ -41,7 +41,7 @@ void Maillon::setRepresentant(Maillon *representant) {
     m_representant = representant;
 }
 
-Pixel Maillon::getPixel() {
+Pixel* Maillon::getPixel() {
     return m_pixel;
 }
 

@@ -30,8 +30,8 @@ public:
     int read(string filepath);
     Image genererPpm();
     void generer(int largeur, int hauteur);
-    Maillon* makeSet(Pixel pixel);
-    Maillon* findSet(Pixel pixel);
+    Maillon* makeSet(Pixel* pixel);
+    Maillon* findSet(Pixel* pixel);
     void colorierImage();
     void write(string filepath);
     void unionSet(Maillon* representant1, Maillon* reprensentant2);
