@@ -20,6 +20,7 @@ public:
     Pixel(int rouge, int vert, int bleu);
     ~Pixel();
     
+    bool isBlanc();
     string getString() const;
     int getRouge();
     int getVert();

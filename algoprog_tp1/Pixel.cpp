@@ -23,6 +23,10 @@ Pixel::~Pixel() {
     
 }
 
+bool Pixel::isBlanc() {
+    return m_rouge == 255 && m_vert == 255 && m_bleu == 255;
+}
+
 string Pixel::getString() const {
     return to_string(m_rouge) + " " + to_string(m_vert) + " " + to_string(m_bleu);
 }
