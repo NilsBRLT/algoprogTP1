@@ -137,6 +137,11 @@ void Image::write(string filepath) {
             char* pixel = (char*)malloc(sizeof(pixelString));
             strcpy(pixel, pixelString.c_str());
             
+            // Espace si (i % 5) == 0
+            if (i % 5 == 0 && i != 0) {
+                ofs.write(retourLigne, sizeof(retourLigne));
+            }
+            
             // Écriture
             ofs.write(pixel, sizeof(pixel));
             ofs.write(espace, sizeof(espace));

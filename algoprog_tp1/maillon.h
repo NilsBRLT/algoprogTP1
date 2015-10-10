@@ -20,6 +20,7 @@ private:
     Maillon* m_representant;
 public:
     Maillon();
+    Maillon(Maillon* maillon);
     Maillon(Pixel pixel);
     Maillon(Pixel pixel, Maillon* suivant, Maillon* representant);
     ~Maillon();

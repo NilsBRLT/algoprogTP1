@@ -12,6 +12,13 @@ Maillon::Maillon() {
 
 }
 
+// Peut-être useless ?
+Maillon::Maillon(Maillon* maillon) {
+    m_pixel = maillon->getPixel();
+    m_suivant = maillon->getSuivant();
+    m_representant = maillon->getRepresentant();
+}
+
 Maillon::Maillon(Pixel pixel) {
     setPixel(pixel);
 }
