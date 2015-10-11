@@ -19,6 +19,8 @@
 
 int main () {
     
+    // FAKE FAKE FAKE ANDY DIS MOI OUI AICHA ECOUTE MOI BWAALALALALALALLALALALAAH
+    
     srand(time_t(NULL));
 
     Image image = Image();
