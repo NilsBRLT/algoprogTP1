@@ -20,7 +20,7 @@ public:
     Pixel(int rouge, int vert, int bleu);
     ~Pixel();
     
-    bool isBlanc();
+    bool nEstPasNoir();
     string getString() const;
     int getRouge();
     int getVert();
@@ -28,6 +28,7 @@ public:
     int getLigne();
     int getColonne();
     Maillon* getMaillon();
+    bool estEgal(Pixel* pixel);
     
     void setLigne(int ligne);
     void setCouleur(int rouge, int vert, int bleu);

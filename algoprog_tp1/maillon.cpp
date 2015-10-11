@@ -56,7 +56,7 @@ Maillon* Maillon::getRepresentant() {
 }
 
 bool Maillon::sameEnsemble(Maillon *maillon) {
-    return (getRepresentant() == maillon->getRepresentant());
+    return (getRepresentant()->getPixel()->estEgal(maillon->getRepresentant()->getPixel()));
 }
 
 void Maillon::unionSet(Maillon* representant2) {
@@ -78,11 +78,14 @@ void Maillon::unionSet(Maillon* representant2) {
     while (elemS1->getSuivant() != nullptr) {
         elemS1 = elemS1->getSuivant();
     }
+    // Arrivé ici, elemS1 est le dernier élément de S1
+    
+    // On "accroche" S2 à S1
     elemS1->setSuivant(elemS2);
-    while (elemS2->getSuivant() != nullptr) {
-        elemS2->setRepresentant(this);
-        elemS2->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
-//        elemS2->setPixel(this->getPixel());
-        elemS2 = representant2->getSuivant();
+    
+    while (elemS1->getSuivant() != nullptr) {
+        elemS1 = elemS1->getSuivant();
+        elemS1->setRepresentant(this);
+        elemS1->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
     }
 }

@@ -142,6 +142,7 @@ void Image::write(string filepath) {
         ofs.write(retourLigne, sizeof(retourLigne));
         
         // BOUCLE D'ECRITURE DES PIXELS
+        cout << endl << endl << endl;
         
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
@@ -208,47 +209,58 @@ void Image::colorierImage() {
 //        }
 //
     m_type = CODE_PPM;
+    
+    // ETAPE 1 - Créer un ensemble pour chaque pixel blanc de l'image
     for (int i = 0; i < m_pixels.size(); i++) {
-        if (m_pixels[i].isBlanc()) {
+        if (m_pixels[i].nEstPasNoir()) {
             Maillon* maillon = makeSet(&m_pixels[i]);
             m_sets.push_back(maillon);
         }
     }
-    // TODO: Boucler sur les pixels et plus les sets
-    // Comme un pixel connait son set
+    
+    // ETAPE 2 - Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
     for (int i = 0; i < m_sets.size(); i++) {
         Maillon* maillon = m_sets[i];
-        if (maillon->getPixel()->isBlanc()) {
-            // gauche
+        
+        if (maillon->getPixel()->nEstPasNoir()) {
+            
+            // Voisin de gauche
             if (maillon->getPixel()->getColonne() > 0
-                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].isBlanc()) {
-                // si ils sont de sets différents on fusionne
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].nEstPasNoir()) {
+                
+                // Si ils ne sont pas dans le même ensemble on fusionne
                 if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon());
+                    maillon->getRepresentant()->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].getMaillon()->getRepresentant());
                 }
             }
-            // droite
+            
+            // Voisin de droite
             if (maillon->getPixel()->getColonne() < m_largeur-1
-                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].isBlanc()) {
-                // si ils sont de sets différents on fusionne
+                && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].nEstPasNoir()) {
+                
+                // Si ils ne sont pas dans le même ensemble on fusionne
                 if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].getMaillon());
+                    maillon->getRepresentant()->unionSet(m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].getMaillon()->getRepresentant());
                 }
             }
-            // bas
+            
+            // Voisin du bas
             if (maillon->getPixel()->getLigne() < m_hauteur-1
-                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].isBlanc()) {
-                // si ils sont de sets différents on fusionne
+                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].nEstPasNoir()) {
+                
+                // Si ils ne sont pas dans le même ensemble on fusionne
                 if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].getMaillon());
+                    maillon->getRepresentant()->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].getMaillon()->getRepresentant());
                 }
             }
-            // haut
+            
+            // Voisin du haut
             if (maillon->getPixel()->getLigne() > 0
-                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].isBlanc()) {
-                // si ils sont de sets différents on fusionne
+                && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].nEstPasNoir()) {
+                
+                // Si ils ne sont pas dans le même ensemble on fusionne
                 if (!maillon->sameEnsemble(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].getMaillon())) {
-                    maillon->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].getMaillon());
+                    maillon->getRepresentant()->unionSet(m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].getMaillon()->getRepresentant());
                 }
             }
         }

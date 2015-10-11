@@ -23,8 +23,8 @@ Pixel::~Pixel() {
     
 }
 
-bool Pixel::isBlanc() {
-    return m_rouge == 255 && m_vert == 255 && m_bleu == 255;
+bool Pixel::nEstPasNoir() {
+    return m_rouge != 0 && m_vert != 0 && m_bleu != 0;
 }
 
 string Pixel::getString() const {
@@ -71,4 +71,8 @@ void Pixel::setCouleur(int rouge, int vert, int bleu) {
     m_rouge = rouge;
     m_vert = vert;
     m_bleu = bleu;
+}
+
+bool Pixel::estEgal(Pixel *pixel) {
+    return m_rouge == pixel->getRouge() && m_vert == pixel->getVert() && m_bleu == pixel->getBleu();
 }
