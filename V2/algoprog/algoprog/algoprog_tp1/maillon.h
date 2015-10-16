@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <vector>
 #include "Pixel.h"
 
 class Maillon {

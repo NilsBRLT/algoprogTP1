@@ -146,12 +146,7 @@ void Image::write(string filepath) {
         
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
-            string pixelString;
-            if (m_pixels[i].nEstPasNoir()) {
-                pixelString = findSet(&m_pixels[i])->getPixel()->getString();
-            } else {
-                pixelString = m_pixels[i].getString();
-            }
+            string pixelString = m_pixels[i].getString();
             cout << pixelString << " ";
             //cout << i << " : " << pixelString << endl;
             char* pixel = (char*)malloc(sizeof(pixelString));
@@ -221,9 +216,7 @@ Maillon* Image::findSet(Pixel* pixel) {
 
 Maillon* Image::makeSet(Pixel* pixel) {
     pixel->setCouleur(rand()%255, rand()%255, rand()%255);
-    Maillon* maillon = new Maillon(pixel);
-    maillon->setRepresentant(maillon);
-    return maillon;
+    return new Maillon(pixel);
 }
 
 void Image::colorierImage() {
@@ -253,51 +246,64 @@ void Image::colorierImage() {
         
         Pixel pix = m_pixels[i];
         if (pix.nEstPasNoir()) {
-            cout << "BEFORE : " << pix.getLigne() << "," << pix.getColonne() << " : " << findSet(&pix)->getPixel()->getLigne() << "," << findSet(&pix)->getPixel()->getColonne() << endl;
-           
-//            // Voisin de gauche
-//            if (pix.getColonne() > 0 && m_pixels[i-1].nEstPasNoir()) {
-//                Maillon* m1 = findSet(&pix);
-//                Maillon* m2 = findSet(&m_pixels[i-1]);
-//                if (!m1->getPixel()->estEgal(m2->getPixel())) {
-//                    m1->getRepresentant()->unionSet(m2->getRepresentant());
-////                    for (int j = 0; j < m_sets.size(); j++) {
-////                        if (m_sets[j] == m2->getRepresentant()) {
-////                            m_sets.erase(m_sets.begin() + j);
-////                        }
-////                    }
-//                }
-//            }
+            
+            // Voisin de gauche
+            if (pix.getColonne() > 0 && m_pixels[i-1].nEstPasNoir()) {
+                Maillon* m1 = findSet(&pix);
+                Maillon* m2 = findSet(&m_pixels[i-1]);
+                if (m1 != m2) {
+                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                    for (int j = 0; j < m_sets.size(); j++) {
+                        if (m_sets[j] == m2->getRepresentant()) {
+                            m_sets.erase(m_sets.begin() + j);
+                        }
+                    }
+                }
+            }
             
             // Voisin de droite
             if (pix.getColonne() < m_largeur - 1 && m_pixels[i+1].nEstPasNoir()) {
                 Maillon* m1 = findSet(&pix);
                 Maillon* m2 = findSet(&m_pixels[i+1]);
-                if (!m1->getPixel()->estEgal(m2->getPixel())) {
+                if (m1 != m2) {
                     m1->getRepresentant()->unionSet(m2->getRepresentant());
+                    for (int j = 0; j < m_sets.size(); j++) {
+                        if (m_sets[j] == m2->getRepresentant()) {
+                            m_sets.erase(m_sets.begin() + j);
+                        }
+                    }
                 }
             }
             
-//            // Voisin du haut
-//            if (pix.getLigne() > 0 && m_pixels[i-m_largeur].nEstPasNoir()) {
-//                Maillon* m1 = findSet(&pix);
-//                Maillon* m2 = findSet(&m_pixels[i-m_largeur]);
-//                cout << m2;
-//                if (!m1->getPixel()->estEgal(m2->getPixel())) {
-//                    m1->getRepresentant()->unionSet(m2->getRepresentant());
-//                }
-//            }
+            // Voisin du haut
+            if (pix.getLigne() > 0 && m_pixels[i-m_largeur].nEstPasNoir()) {
+                Maillon* m1 = findSet(&pix);
+                Maillon* m2 = findSet(&m_pixels[i-m_largeur]);
+                cout << m2;
+                if (m1 != m2) {
+                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                    for (int j = 0; j < m_sets.size(); j++) {
+                        if (m_sets[j] == m2->getRepresentant()) {
+                            m_sets.erase(m_sets.begin() + j);
+                        }
+                    }
+
+                }
+            }
             
             // Voisin du bas
             if (pix.getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur].nEstPasNoir()) {
                 Maillon* m1 = findSet(&pix);
                 Maillon* m2 = findSet(&m_pixels[i+m_largeur]);
-                if (!m1->getPixel()->estEgal(m2->getPixel())) {
+                if (m1 != m2) {
                     m1->getRepresentant()->unionSet(m2->getRepresentant());
+                    for (int j = 0; j < m_sets.size(); j++) {
+                        if (m_sets[j] == m2->getRepresentant()) {
+                            m_sets.erase(m_sets.begin() + j);
+                        }
+                    }
                 }
             }
-            
-            cout << "AFTER  : " << pix.getLigne() << "," << pix.getColonne() << " : " << findSet(&pix)->getPixel()->getLigne() << "," << findSet(&pix)->getPixel()->getColonne() << endl;
         }
     }
 }

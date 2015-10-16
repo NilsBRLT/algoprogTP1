@@ -23,7 +23,6 @@ Maillon::Maillon(Maillon* maillon) {
 
 Maillon::Maillon(Pixel* pixel) {
     setPixel(pixel);
-    setRepresentant(this);
 }
 
 Maillon::Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant) {
@@ -71,27 +70,48 @@ void Maillon::unionSet(Maillon* representant2) {
     //        // Reprensentants ne sont pas représentant (au moins un des deux
     //        // Throw error ou prendre son représentant ?
     //    }
+    if (this->getPixel()->getLigne() == 2 && this->getPixel()->getColonne() == 2) {
+        ;
+    }
+    if (this->getRepresentant() == representant2->getRepresentant()) {
+        cout << "not normal" << endl;
+    }
     
-    Maillon* elemS1 = new Maillon(this);
-    Maillon* elemS2 = new Maillon(representant2);
+    Maillon* parcours = this;
+    Maillon* representant = this;
     
     // On veut prendre le dernier de la liste pour lui ajouter les suivants
-    while (elemS1->getSuivant() != nullptr) {
-        elemS1 = elemS1->getSuivant();
+    while (parcours->getSuivant() != nullptr) {
+        cout << "next of" << " (" << parcours->getPixel()->getLigne() << "," << parcours->getPixel()->getColonne() << ")" << " is " << " (" << parcours->getSuivant()->getPixel()->getLigne() << "," << parcours->getSuivant()->getPixel()->getColonne() << ")" << endl;
+        parcours = parcours->getSuivant();
+        if (parcours == representant2) {
+            cout << "NOT FUCKING NORMAL" << endl;
+            
+        }
     }
     // Arrivé ici, elemS1 est le dernier élément de S1
     
     // On "accroche" S2 à S1
-    elemS1->setSuivant(elemS2);
+    parcours->setSuivant(representant2);
     
     // On passe sur le premier de l'ancienne deuxième liste
-    elemS1 = elemS1->getSuivant();
-    
+    parcours = parcours->getSuivant();
+    cout << parcours->getPixel()->getLigne() << "," << parcours->getPixel()->getColonne() << " ==" << representant2->getPixel()->getLigne() << "," << representant2->getPixel()->getColonne() << endl;
+    cout << parcours->getSuivant() << endl;
+    vector<Maillon*> maillons;
     do {
-        elemS1->setRepresentant(this);
-        elemS1->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
-        elemS1 = elemS1->getSuivant();
-    } while(elemS1 != nullptr);
+        cout << "new representant for : " << parcours->getPixel()->getLigne() << "," << parcours->getPixel()->getColonne() << " (" << representant->getPixel()->getLigne() << "," << representant->getPixel()->getColonne() << ")" << endl;
+        parcours->setRepresentant(representant);
+        parcours->getPixel()->setCouleur(representant->getPixel()->getRouge(), representant->getPixel()->getVert(), representant->getPixel()->getBleu());
+        maillons.push_back(parcours);
+        for (int i = 0; i < maillons.size(); i++) {
+            if (maillons[i] == parcours) {
+                parcours->setSuivant(nullptr);
+            }
+        }
+        parcours = parcours->getSuivant();
+    } while(parcours != nullptr);
+    representant2->setSuivant(nullptr);
 }
 
 void Maillon::afficher() {
