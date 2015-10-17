@@ -218,31 +218,29 @@ Maillon* Image::makeSet(Pixel* pixel) {
 }
 
 void Image::colorierImage() {
-//    Boucler sur les pixels de l'image
-//    pour créer l'ensemble de set et peupler m_sets
-//    Unioner les sets blabla...
-//    for (int l=0; l<m_largeur; l++) {
-//        for (int h = 0; h<m_hauteur; h++) {
-//            if (m_pixels)
-//            Maillon* maillon = makeSet(m_pixels[l+h*m_largeur]);
-//            m_sets.push_back(maillon);
-//        }
-//
+
     m_type = CODE_PPM;
     
     // ETAPE 1 - Créer un ensemble pour chaque pixel blanc de l'image
+    /*
     for (int i = 0; i < m_pixels.size(); i++) {
         if (m_pixels[i].nEstPasNoir()) {
             Maillon* maillon = makeSet(&m_pixels[i]);
             m_sets.push_back(maillon);
         }
     }
+    */
+    for (int i = 0; i < m_pixels.size(); i++) {
+        if (m_pixels[i].nEstPasNoir()) {
+            m_pixels[i].setCouleur(rand()%255, rand()%255, rand()%255);
+            m_pixels[i].setRepresentant(&m_pixels[i]);
+        }
+    }
     
     // ETAPE 2 - Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
-    cout << "Taille du tableau de pixel : " << m_pixels.size() << endl;
     for (int i = 0; i < m_pixels.size(); i++) {
         
-        if (i % 100 == 0)
+        if (i % 100000 == 0)
             cout << "Avancement : " << i << endl;
         
         Pixel pix = m_pixels[i];
@@ -250,37 +248,53 @@ void Image::colorierImage() {
             
             // Voisin de gauche
             if (pix.getColonne() > 0 && m_pixels[i-1].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i-1]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                //Maillon* m1 = findSet(&pix);
+                //Maillon* m2 = findSet(&m_pixels[i-1]);
+                
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i-1].getRepresentant();
+                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
             
             // Voisin de droite
             if (pix.getColonne() < m_largeur - 1 && m_pixels[i+1].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i+1]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                //Maillon* m1 = findSet(&pix);
+                //Maillon* m2 = findSet(&m_pixels[i+1]);
+                
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i+1].getRepresentant();
+                                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
             
             // Voisin du haut
             if (pix.getLigne() > 0 && m_pixels[i-m_largeur].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i-m_largeur]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                //Maillon* m1 = findSet(&pix);
+                //Maillon* m2 = findSet(&m_pixels[i-m_largeur]);
+                
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i-m_largeur].getRepresentant();
+                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
             
             // Voisin du bas
             if (pix.getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i+m_largeur]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                //Maillon* m1 = findSet(&pix);
+                //Maillon* m2 = findSet(&m_pixels[i+m_largeur]);
+                
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i+m_largeur].getRepresentant();
+                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
         }
