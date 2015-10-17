@@ -63,18 +63,26 @@ bool Maillon::sameEnsemble(Maillon *maillon) {
 
 void Maillon::unionSet(Maillon* representant2) {
     Maillon* parcoursS2 = representant2;
-    
+    Maillon* dernierS2;
     do {
+        dernierS2 = parcoursS2;
         parcoursS2->setRepresentant(this);
         parcoursS2->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
         parcoursS2 = parcoursS2->getSuivant();
     } while(parcoursS2 != nullptr);
     
+    /* PARCOURS DE S1 POUR COLLER S2 A LA FIN
     Maillon* parcoursS1 = this;
     while (parcoursS1->getSuivant() != nullptr) {
         parcoursS1 = parcoursS1->getSuivant();
     }
     parcoursS1->setSuivant(representant2);
+    */
+    
+    // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
+    Maillon* deuxiemeS1 = this->getSuivant();
+    this->setSuivant(representant2);
+    dernierS2->setSuivant(deuxiemeS1);
 }
 
 void Maillon::afficher() {

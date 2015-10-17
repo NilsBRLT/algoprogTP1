@@ -13,9 +13,9 @@
 #include <vector>
 
 #define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/nils.pbm"
-#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/biang.pbm"
+#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/nils.pbm"
 #define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/nils_out.ppm"
-#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/biang.ppm"
+#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/nils_out.ppm"
 
 int main () {
     
