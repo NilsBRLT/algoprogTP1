@@ -24,6 +24,7 @@ Maillon::Maillon(Maillon* maillon) {
 Maillon::Maillon(Pixel* pixel) {
     setPixel(pixel);
     setRepresentant(this);
+    setSuivant(nullptr); // C'EST CETTE PUTAIN DE LIGNE QUI NIQUAIT LE BUSINESS
 }
 
 Maillon::Maillon(Pixel* pixel, Maillon* suivant, Maillon* representant) {
@@ -61,37 +62,19 @@ bool Maillon::sameEnsemble(Maillon *maillon) {
 }
 
 void Maillon::unionSet(Maillon* representant2) {
-    
-    //    if (representant1.getRepresentant()->getPixel() == reprensentant2.getRepresentant()->getPixel()) {
-    //        // Ensemble non disjoint
-    //        // Throw error (précond)
-    //    }
-    //    if (representant1.getRepresentant()->getPixel() != representant1.getPixel()
-    //        || representant2.getRepresentant()->getPixel() != representant2.getPixel()) {
-    //        // Reprensentants ne sont pas représentant (au moins un des deux
-    //        // Throw error ou prendre son représentant ?
-    //    }
-    
-    Maillon* elemS1 = new Maillon(this);
-    Maillon* elemS2 = new Maillon(representant2);
-    
-    // On veut prendre le dernier de la liste pour lui ajouter les suivants
-    while (elemS1->getSuivant() != nullptr) {
-        elemS1 = elemS1->getSuivant();
-    }
-    // Arrivé ici, elemS1 est le dernier élément de S1
-    
-    // On "accroche" S2 à S1
-    elemS1->setSuivant(elemS2);
-    
-    // On passe sur le premier de l'ancienne deuxième liste
-    elemS1 = elemS1->getSuivant();
+    Maillon* parcoursS2 = representant2;
     
     do {
-        elemS1->setRepresentant(this);
-        elemS1->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
-        elemS1 = elemS1->getSuivant();
-    } while(elemS1 != nullptr);
+        parcoursS2->setRepresentant(this);
+        parcoursS2->getPixel()->setCouleur(this->getPixel()->getRouge(), this->getPixel()->getVert(), this->getPixel()->getBleu());
+        parcoursS2 = parcoursS2->getSuivant();
+    } while(parcoursS2 != nullptr);
+    
+    Maillon* parcoursS1 = this;
+    while (parcoursS1->getSuivant() != nullptr) {
+        parcoursS1 = parcoursS1->getSuivant();
+    }
+    parcoursS1->setSuivant(representant2);
 }
 
 void Maillon::afficher() {

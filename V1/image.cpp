@@ -64,12 +64,14 @@ int Image::read(string filepath) {
         
         // Début affichage pour test
         
+        /*
         for (unsigned i=0; i < m_hauteur; i++) {
             for (unsigned j=0; j < m_largeur; j++) {
                 cout << m_pixels[j+i*m_largeur].getString() << " ";
             }
             cout << '\n';
         }
+        */
         
     }
     else {
@@ -134,6 +136,7 @@ void Image::write(string filepath) {
         
         // ECRITURE DU HEADER DANS LE FICHIER
         ofs.write(type, sizeof(type));
+        ofs.write(retourLigne, sizeof(retourLigne));
         ofs.write(largeur, sizeof(largeur));
         ofs.write(espace, sizeof(espace));
         ofs.write(hauteur, sizeof(hauteur));
@@ -239,8 +242,8 @@ void Image::colorierImage() {
     cout << "Taille du tableau de pixel : " << m_pixels.size() << endl;
     for (int i = 0; i < m_pixels.size(); i++) {
         
-        if (i==36)
-            int a = 0;
+        if (i % 100 == 0)
+            cout << "Avancement : " << i << endl;
         
         Pixel pix = m_pixels[i];
         if (pix.nEstPasNoir()) {

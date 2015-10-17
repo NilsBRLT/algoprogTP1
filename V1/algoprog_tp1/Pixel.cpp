@@ -13,6 +13,12 @@ Pixel::Pixel() {
     
 }
 
+Pixel::Pixel(Pixel* pixel) {
+    setCouleur(pixel->getRouge(), pixel->getVert(), pixel->getBleu());
+    setColonne(pixel->getColonne());
+    setLigne(pixel->getLigne());
+}
+
 Pixel::Pixel(int rouge, int vert, int bleu) {
     m_rouge = rouge;
     m_vert = vert;

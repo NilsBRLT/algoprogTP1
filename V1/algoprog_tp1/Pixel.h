@@ -18,6 +18,7 @@ class Maillon;
 class Pixel {
 public:
     Pixel();
+    Pixel(Pixel* pixel);
     Pixel(int rouge, int vert, int bleu);
     ~Pixel();
     
