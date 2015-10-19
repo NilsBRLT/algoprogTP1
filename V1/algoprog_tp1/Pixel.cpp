@@ -96,24 +96,51 @@ Pixel* Pixel::getSuivant() {
 }
 
 void Pixel::unionChaines(Pixel* representant2) {
-    Pixel* parcoursS2 = representant2;
-    Pixel* dernierS2;
-    do {
-        dernierS2 = parcoursS2;
+//    if (representant2->getSetSize() > this->getSetSize()) {
+//        // Le second set sera plus long à parcourir que le premier : on parcours S1
+//        Pixel* parcoursS1 = this;
+//        Pixel* dernierS1;
+//        do {
+//            dernierS1 = parcoursS1;
+//            parcoursS1->setRepresentant(representant2);
+//            parcoursS1->setCouleur(representant2->getRouge(), representant2->getVert(), representant2->getBleu());
+//            parcoursS1 = parcoursS1->getSuivant();
+//        } while(parcoursS1 != nullptr);
+//        
+//        // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
+//        Pixel* deuxiemeS2 = representant2->getSuivant();
+//        representant2->setSuivant(this);
+//        representant2->incrementSize(this->getSetSize());
+//            cout << representant2->getSetSize() <<endl;
+//        cout << "québlo" << endl;
+//        dernierS1->setSuivant(deuxiemeS2);
+//
+//    } else {
+        // Le premier set sera plus long à parcouri : on parcours S2
+        Pixel* parcoursS2 = representant2;
+        while(parcoursS2->getSuivant() != nullptr) {
+            parcoursS2->setRepresentant(this);
+            parcoursS2->setCouleur(this->getRouge(), this->getVert(), this->getBleu());
+            parcoursS2 = parcoursS2->getSuivant();
+        }
+        // On prends désormais le dernier à la fin ca évite les affectations inutiles
+        Pixel* dernierS2 = parcoursS2;
         parcoursS2->setRepresentant(this);
         parcoursS2->setCouleur(this->getRouge(), this->getVert(), this->getBleu());
         parcoursS2 = parcoursS2->getSuivant();
-    } while(parcoursS2 != nullptr);
-    
-    // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
-    Pixel* deuxiemeS1 = this->getSuivant();
-    this->setSuivant(representant2);
-    this->incrementSize(representant2->getSetSize());
-    dernierS2->setSuivant(deuxiemeS1);
+        // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
+        Pixel* deuxiemeS1 = this->getSuivant();
+        this->setSuivant(representant2);
+        this->incrementSize(representant2->getSetSize());
+//            cout << this->getSetSize() <<endl;
+//        cout << "bloqué" << endl;
+//        cout << "Dernier S2 : " << dernierS2 << endl;
+//        cout << "Deuxième S1 : " << deuxiemeS1 << endl;
+        dernierS2->setSuivant(deuxiemeS1);
+//    }
 }
 
 int Pixel::getSetSize() {
-    cout << "test";
     return m_setSize;
 }
 

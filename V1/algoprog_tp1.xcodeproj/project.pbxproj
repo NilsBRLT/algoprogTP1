@@ -225,6 +225,7 @@
 		5DDE745E1BBC461D00260B11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -232,6 +233,7 @@
 		5DDE745F1BBC461D00260B11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -10,6 +10,7 @@
 #define __algoprog_tp1__Pixel__
 
 #include <stdio.h>
+#include <iostream>     // std::cout
 #include <string>
 
 using namespace std;
