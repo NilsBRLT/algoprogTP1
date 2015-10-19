@@ -10,7 +10,7 @@
 
 
 Pixel::Pixel() {
-    
+    m_setSize = 0;
 }
 
 Pixel::Pixel(Pixel* pixel) {
@@ -18,6 +18,7 @@ Pixel::Pixel(Pixel* pixel) {
     setColonne(pixel->getColonne());
     setLigne(pixel->getLigne());
     setSuivant(nullptr);
+    m_setSize = 1;
 }
 
 Pixel::Pixel(int rouge, int vert, int bleu) {
@@ -25,6 +26,7 @@ Pixel::Pixel(int rouge, int vert, int bleu) {
     m_vert = vert;
     m_bleu = bleu;
     setSuivant(nullptr);
+    m_setSize = 1;
 }
 
 Pixel::~Pixel() {
@@ -106,7 +108,15 @@ void Pixel::unionChaines(Pixel* representant2) {
     // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
     Pixel* deuxiemeS1 = this->getSuivant();
     this->setSuivant(representant2);
+    this->incrementSize(representant2->getSetSize());
     dernierS2->setSuivant(deuxiemeS1);
 }
 
+int Pixel::getSetSize() {
+    cout << "test";
+    return m_setSize;
+}
 
+void Pixel::incrementSize(int size) {
+    m_setSize+= size;
+}

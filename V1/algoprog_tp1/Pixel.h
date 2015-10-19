@@ -44,6 +44,8 @@ public:
     Pixel* getSuivant();
     
     void unionChaines(Pixel* representant2);
+    int getSetSize();
+    void incrementSize(int size);
     
 private:
     int m_rouge;
@@ -53,6 +55,7 @@ private:
     int m_colonne;
     Pixel* m_representant;
     Pixel* m_suivant;
+    int m_setSize;
     
 };
 
