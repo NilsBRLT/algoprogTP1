@@ -11,31 +11,32 @@
 #include "image.h"
 #include "Pixel.h"
 #include <vector>
+#include <time.h>       /* time_t, struct tm, difftime, time, mktime */
 
-#define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/nils.pbm"
-#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/nils.pbm"
-#define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/nils_out.ppm"
-#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/nils_out.ppm"
+#define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france.pbm"
+#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france.pbm"
+#define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france_out.ppm"
+#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france_out.ppm"
 
 int main () {
-    
-    // FAKE FAKE FAKE ANDY DIS MOI OUI AICHA ECOUTE MOI BWAALALALALALALLALALALAAH
-
+    double seconds;
+    time_t start;
+    time(&start);  /* get current time; same as: now = time(NULL)  */
     srand(time_t(NULL));
         
     Image image = Image();
     
         
-    image.read(IMAGE_IN_NILS);
-//    image.read(IMAGE_IN_PA);
+//    image.read(IMAGE_IN_NILS);
+    image.read(IMAGE_IN_PA);
     
     image.colorierImage();
-    //image.testerUnion();
     
 //    image.generer(5, 5);
-    image.write(IMAGE_OUT_NILS);
-//    image.write(IMAGE_OUT_PA);
-    
+//    image.write(IMAGE_OUT_NILS);
+    image.write(IMAGE_OUT_PA);
+    seconds = difftime(time(NULL), start);
+    cout << "fini en " << seconds << " seconds";
     
     return 0;
 }

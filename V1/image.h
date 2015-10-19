@@ -34,7 +34,7 @@ public:
     Maillon* findSet(Pixel* pixel);
     void colorierImage();
     void write(string filepath);
-    
+    void writeColor(Pixel pixel, ofstream file);
     void testerUnion();
 private:
     string m_type;

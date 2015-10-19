@@ -102,84 +102,62 @@ void Image::generer(int largeur, int hauteur) {
 
 void Image::write(string filepath) {
     // Création d'un fichier (mode out)
-    std::ofstream ofs;
-    ofs.open (filepath, std::ofstream::out);
+    ofstream ofs;
+//    ofs.open (filepath, std::ofstream::out);
     
+    ofs.open(filepath);
     if (ofs.is_open()) {
-        // Préparation du type (P3) en char*
-        char* type = (char*)malloc(m_type.size());
-        strcpy(type, m_type.c_str());
-        
-        // Préparation du '\n' en char*
-        char* retourLigne = (char*)malloc(1);
-        string retourLigneString = "\n";
-        strcpy(retourLigne, retourLigneString.c_str());
-        
-        // Préparation de l'espace ' ' en char*
-        char* espace = (char*)malloc(1);
-        string espaceString = " ";
-        strcpy(espace, espaceString.c_str());
-        
-        // Préparation de la largeur et de la hauteur
-        char* largeur = (char*)malloc(compteChiffresDansNombre(m_largeur));
-        string largeurString = to_string(m_largeur);
-        strcpy(largeur, largeurString.c_str());
-        char* hauteur = (char*)malloc(compteChiffresDansNombre(m_hauteur));
-        string hauteurString = to_string(m_hauteur);
-        strcpy(hauteur, hauteurString.c_str());
-        
-        // Préparation du nombre de couleurs (NB_COULEURS)
-        char* nbCouleurs = (char*)malloc(compteChiffresDansNombre(NB_COULEURS));
-        string nbCouleursString = to_string(NB_COULEURS);
-        strcpy(nbCouleurs, nbCouleursString.c_str());
-        
         
         // ECRITURE DU HEADER DANS LE FICHIER
-        ofs.write(type, sizeof(type));
-        ofs.write(retourLigne, sizeof(retourLigne));
-        ofs.write(largeur, sizeof(largeur));
-        ofs.write(espace, sizeof(espace));
-        ofs.write(hauteur, sizeof(hauteur));
-        ofs.write(retourLigne, sizeof(retourLigne));
-        ofs.write(nbCouleurs, sizeof(nbCouleurs));
-        ofs.write(retourLigne, sizeof(retourLigne));
+        ofs << m_type;
+        ofs << '\n';
+        ofs << m_largeur;
+        ofs << " ";
+        ofs << m_hauteur;
+        ofs << '\n';
+        ofs << NB_COULEURS;
+        ofs << '\n';
         
         // BOUCLE D'ECRITURE DES PIXELS
-        cout << endl << endl << endl;
-        
+        int ligneSize = 0;
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
-            string pixelString = m_pixels[i].getString();
-            cout << pixelString << " ";
-            //cout << i << " : " << pixelString << endl;
-            char* pixel = (char*)malloc(sizeof(pixelString));
-            strcpy(pixel, pixelString.c_str());
-            
-//            // Espace si (i % 5) == 0
-//            if (i % 5 == 0 && i != 0) {
-//                ofs.write(retourLigne, sizeof(retourLigne));
-//            }
-            
-            // Écriture
-            ofs.write(pixel, sizeof(pixel));
-            ofs.write(espace, sizeof(espace));
+//            string pixelString = m_pixels[i].getString();
+            string rouge = to_string(m_pixels[i].getRouge()) + " ";
+            if ((ligneSize+rouge.size())/70 >= 1) {
+                ligneSize = 0;
+                ofs << '\n';
+            }
+            ofs << rouge;
+            ligneSize+= rouge.size();
+            string vert = to_string(m_pixels[i].getVert()) + " ";
+            if ((ligneSize+vert.size())/70 >= 1) {
+                ligneSize = 0;
+                ofs << '\n';
+            }
+            ofs << vert;
+            ligneSize+= vert.size();
+            string bleu = to_string(m_pixels[i].getBleu()) + " ";
+            if ((ligneSize+bleu.size())/70 >= 1) {
+                ligneSize = 0;
+                ofs << '\n';
+            }
+            ofs << bleu;
+            ligneSize+= bleu.size();
         }
-        
+    
         // FIN BOUCLE
-        
-        free(type);
-        free(retourLigne);
-        free(espace);
-        free(largeur);
-        free(hauteur);
-        free(nbCouleurs);
     }
     else {
         // show message:
-        std::cout << "Error creating file";
+        cout << "Error creating file";
     }
     
     ofs.close();
+}
+
+void Image::writeColor(Pixel pixel, ofstream file) {
+    
 }
 
 Maillon* Image::findSet(Pixel* pixel) {
@@ -192,22 +170,6 @@ Maillon* Image::findSet(Pixel* pixel) {
             }
             maillon = maillon->getSuivant();
         } while(maillon != nullptr);
-        
-        
-        /*
-        // On regarde si le représentant est le pixel recherché
-        if (m_sets[i]->getPixel()->getString() == pixel->getString()) {
-            return m_sets[i];
-        }
-        
-        // Sinon, on cherche dans la suite de l'ensemble
-        Maillon* maillon = m_sets[i];
-        while (maillon->getSuivant() != nullptr && maillon->getPixel()->getString() != pixel->getString()) {
-            maillon = maillon->getSuivant();
-        }
-        if (maillon != nullptr) {
-            return maillon;
-        }*/
     }
     return nullptr;
 }
@@ -218,174 +180,57 @@ Maillon* Image::makeSet(Pixel* pixel) {
 }
 
 void Image::colorierImage() {
-//    Boucler sur les pixels de l'image
-//    pour créer l'ensemble de set et peupler m_sets
-//    Unioner les sets blabla...
-//    for (int l=0; l<m_largeur; l++) {
-//        for (int h = 0; h<m_hauteur; h++) {
-//            if (m_pixels)
-//            Maillon* maillon = makeSet(m_pixels[l+h*m_largeur]);
-//            m_sets.push_back(maillon);
-//        }
-//
+
     m_type = CODE_PPM;
     
     // ETAPE 1 - Créer un ensemble pour chaque pixel blanc de l'image
+    /*
     for (int i = 0; i < m_pixels.size(); i++) {
         if (m_pixels[i].nEstPasNoir()) {
             Maillon* maillon = makeSet(&m_pixels[i]);
             m_sets.push_back(maillon);
         }
     }
+    */
+    for (int i = 0; i < m_pixels.size(); i++) {
+        if (m_pixels[i].nEstPasNoir()) {
+            m_pixels[i].setCouleur(rand()%255, rand()%255, rand()%255);
+            m_pixels[i].setRepresentant(&m_pixels[i]);
+        }
+    }
     
     // ETAPE 2 - Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
-    cout << "Taille du tableau de pixel : " << m_pixels.size() << endl;
     for (int i = 0; i < m_pixels.size(); i++) {
-        
-        if (i % 100 == 0)
-            cout << "Avancement : " << i << endl;
         
         Pixel pix = m_pixels[i];
         if (pix.nEstPasNoir()) {
             
-            // Voisin de gauche
-            if (pix.getColonne() > 0 && m_pixels[i-1].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i-1]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
-                }
-            }
-            
             // Voisin de droite
             if (pix.getColonne() < m_largeur - 1 && m_pixels[i+1].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i+1]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
-                }
-            }
-            
-            // Voisin du haut
-            if (pix.getLigne() > 0 && m_pixels[i-m_largeur].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i-m_largeur]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                //Maillon* m1 = findSet(&pix);
+                //Maillon* m2 = findSet(&m_pixels[i+1]);
+                
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i+1].getRepresentant();
+                                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
             
             // Voisin du bas
             if (pix.getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur].nEstPasNoir()) {
-                Maillon* m1 = findSet(&pix);
-                Maillon* m2 = findSet(&m_pixels[i+m_largeur]);
-                if (m1 != m2) {
-                    m1->getRepresentant()->unionSet(m2->getRepresentant());
+                Pixel* p1 = pix.getRepresentant();
+                Pixel* p2 = m_pixels[i+m_largeur].getRepresentant();
+                
+                if (p1 != p2) {
+                    p1->unionChaines(p2);
                 }
             }
         }
     }
 }
 
-int Image::compteChiffresDansNombre(int nombre) {
-    int nb_chiffres = 0;
-    
-    do {
-        nb_chiffres++;
-        nombre /= 10;
-    } while (nombre != 0);
-    return nb_chiffres;
-}
-
-
-/*
- 
- 
- if (maillon->getPixel()->nEstPasNoir()) {
- 
- // Voisin de gauche
- if (maillon->getPixel()->getColonne() > 0
- && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur-1].nEstPasNoir()) {
- 
- // Si ils ne sont pas dans le même ensemble on fusionne
- 
- }
- 
- // Voisin de droite
- if (maillon->getPixel()->getColonne() < m_largeur-1
- && m_pixels[maillon->getPixel()->getColonne() + maillon->getPixel()->getLigne()*m_largeur+1].nEstPasNoir()) {
- 
- // Si ils ne sont pas dans le même ensemble on fusionne
- 
- }
- 
- // Voisin du bas
- if (maillon->getPixel()->getLigne() < m_hauteur-1
- && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()+1)*m_largeur].nEstPasNoir()) {
- 
- // Si ils ne sont pas dans le même ensemble on fusionne
- 
- }
- 
- // Voisin du haut
- if (maillon->getPixel()->getLigne() > 0
- && m_pixels[maillon->getPixel()->getColonne() + (maillon->getPixel()->getLigne()-1)*m_largeur].nEstPasNoir()) {
- 
- // Si ils ne sont pas dans le même ensemble on fusionne
- 
- }
- }
- 
- 
- */
-
-void Image::testerUnion() {
-    m_sets.clear();
-    
-
-    Maillon* liste1 = new Maillon();
-    Maillon* m2 = new Maillon();
-    Maillon* m3 = new Maillon();
-    Pixel* p1 = new Pixel(1,1,1);
-    Pixel* p2 = new Pixel(2,2,2);
-    Pixel* p3 = new Pixel(3,3,3);
-    
-    liste1->setRepresentant(liste1);
-    m2->setRepresentant(liste1);
-    m3->setRepresentant(liste1);
-    
-    liste1->setPixel(p1);
-    m2->setPixel(p2);
-    m3->setPixel(p3);
-    m2->setSuivant(m3);
-    liste1->setSuivant(m2);
-    
-    // SEPARATION
-    
-    Maillon* liste2 = new Maillon();
-    Maillon* m2a = new Maillon();
-    Maillon* m3a = new Maillon();
-    Pixel* p1a = new Pixel(4,4,4);
-    Pixel* p2a = new Pixel(5,5,5);
-    Pixel* p3a = new Pixel(6,6,6);
-    
-    liste2->setRepresentant(liste2);
-    m2a->setRepresentant(liste2);
-    m3a->setRepresentant(liste2);
-    
-    liste2->setPixel(p1a);
-    m2a->setPixel(p2a);
-    m3a->setPixel(p3a);
-    m2a->setSuivant(m3a);
-    liste2->setSuivant(m2a);
-    
-    liste1->afficher();
-    liste2->afficher();
-    
-    liste1->getRepresentant()->unionSet(liste2->getRepresentant());
-    liste1->afficher();
-    
-}
 
 
 

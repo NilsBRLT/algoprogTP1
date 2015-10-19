@@ -10,19 +10,23 @@
 
 
 Pixel::Pixel() {
-    
+    m_setSize = 0;
 }
 
 Pixel::Pixel(Pixel* pixel) {
     setCouleur(pixel->getRouge(), pixel->getVert(), pixel->getBleu());
     setColonne(pixel->getColonne());
     setLigne(pixel->getLigne());
+    setSuivant(nullptr);
+    m_setSize = 1;
 }
 
 Pixel::Pixel(int rouge, int vert, int bleu) {
     m_rouge = rouge;
     m_vert = vert;
     m_bleu = bleu;
+    setSuivant(nullptr);
+    m_setSize = 1;
 }
 
 Pixel::~Pixel() {
@@ -73,4 +77,46 @@ void Pixel::setCouleur(int rouge, int vert, int bleu) {
 
 bool Pixel::estEgal(Pixel *pixel) {
     return m_rouge == pixel->getRouge() && m_vert == pixel->getVert() && m_bleu == pixel->getBleu();
+}
+
+void Pixel::setRepresentant(Pixel *pixel) {
+    m_representant = pixel;
+}
+
+Pixel* Pixel::getRepresentant() {
+    return m_representant;
+}
+
+void Pixel::setSuivant(Pixel *pixel) {
+    m_suivant = pixel;
+}
+
+Pixel* Pixel::getSuivant() {
+    return m_suivant;
+}
+
+void Pixel::unionChaines(Pixel* representant2) {
+    Pixel* parcoursS2 = representant2;
+    Pixel* dernierS2;
+    do {
+        dernierS2 = parcoursS2;
+        parcoursS2->setRepresentant(this);
+        parcoursS2->setCouleur(this->getRouge(), this->getVert(), this->getBleu());
+        parcoursS2 = parcoursS2->getSuivant();
+    } while(parcoursS2 != nullptr);
+    
+    // TECHNIQUE TROUVÉE AVEC ANNE, MA MUSE
+    Pixel* deuxiemeS1 = this->getSuivant();
+    this->setSuivant(representant2);
+    this->incrementSize(representant2->getSetSize());
+    dernierS2->setSuivant(deuxiemeS1);
+}
+
+int Pixel::getSetSize() {
+    cout << "test";
+    return m_setSize;
+}
+
+void Pixel::incrementSize(int size) {
+    m_setSize+= size;
 }

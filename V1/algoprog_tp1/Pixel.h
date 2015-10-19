@@ -35,12 +35,28 @@ public:
     void setCouleur(int rouge, int vert, int bleu);
     void setColonne(int colonne);
     
+    // NIQUE LES MAILLONS
+    
+    void setRepresentant(Pixel* pixel);
+    Pixel* getRepresentant();
+    
+    void setSuivant(Pixel* pixel);
+    Pixel* getSuivant();
+    
+    void unionChaines(Pixel* representant2);
+    int getSetSize();
+    void incrementSize(int size);
+    
 private:
     int m_rouge;
     int m_vert;
     int m_bleu;
     int m_ligne;
     int m_colonne;
+    Pixel* m_representant;
+    Pixel* m_suivant;
+    int m_setSize;
+    
 };
 
 #endif /* defined(__algoprog_tp1__Pixel__) */
