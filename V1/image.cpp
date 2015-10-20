@@ -14,8 +14,7 @@ Image::Image() {
 Image::~Image() {
 }
 
-int Image::read(string filepath) {
-    
+int Image::read(string filepath) throw(ExceptionTP1) {
     // Ouverture du fichier .pbm
     std::ifstream ifs;
     ifs.open (filepath, ifstream::in);
@@ -62,7 +61,7 @@ int Image::read(string filepath) {
         }
     }
     else {
-        std::cout << "Error opening file";
+        throw ExceptionTP1(ERROR_READING);
     }
     
     // Fermeture du fichier .pbm
@@ -93,7 +92,7 @@ void Image::generer(int largeur, int hauteur, int pourcentageNoir) {
     }
 }
 
-void Image::write(string filepath) {
+void Image::write(string filepath) throw(ExceptionTP1) {
     
     // Création d'un fichier (mode out)
     ofstream ofs;
@@ -119,7 +118,7 @@ void Image::write(string filepath) {
     
     }
     else {
-        cout << "Error creating file";
+        throw ExceptionTP1(ERROR_WRITING);
     }
     
     ofs.close();

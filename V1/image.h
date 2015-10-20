@@ -15,12 +15,16 @@
 #include <time.h>
 #include <stdio.h>
 #include "Pixel.h"
+#include "ExceptionTP1.h"
 
 using namespace std;
 
 #define CODE_PPM "P3"
 #define NB_COULEURS 255
 #define TAILLE_MAX_LIGNE 70
+
+#define ERROR_WRITING "impossible de créer le fichier de sortie."
+#define ERROR_READING "impossible de lire le fichier d'entrée (fichier inconnu ou accès refusé)"
 
 class Image {
 public:
@@ -29,10 +33,10 @@ public:
     ~Image();
     
     // Méthodes utiles à la classe
-    int read(string filepath);
+    int read(string filepath) throw(ExceptionTP1);
     void generer(int largeur, int hauteur, int pourcentageNoir);
     void colorierImage();
-    void write(string filepath);
+    void write(string filepath) throw(ExceptionTP1);
     int writePixel(Pixel* pixel, ofstream& file, int lineSize);
     
 private:

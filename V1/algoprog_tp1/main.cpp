@@ -9,7 +9,6 @@
 // print the content of a text file.
 
 #include "image.h"
-#include "Pixel.h"
 #include <vector>
 #include <time.h>
 
@@ -28,25 +27,31 @@ int main () {
     // Récupération du nombre inital de clocks
     long int debut = clock();
     
-    // Lecture de l'image...
-    image.read(IMAGE_IN_NILS);
-//    image.read(IMAGE_IN_PA);
-    
-    // ... ou génération de l'image
-    //image.generer(1600, 1600, 40);
-    
-    // Coloriage de l'image
-    image.colorierImage();
-    
-    // Ecriture de l'image
-    image.write(IMAGE_OUT_NILS);
-//    image.write(IMAGE_OUT_PA);
-    
-    // Récupération du nombre final de clocks
-    long int fin = clock();
-    
-    // Affichage du temps du traitement
-    cout << "Traitement terminé en " << (fin-debut)/CLOCKS_PER_SEC << " secondes et " << ((fin-debut)%CLOCKS_PER_SEC)/1000 << " millisecondes." << endl;
+    try {
+        // Lecture de l'image...
+        image.read(IMAGE_IN_NILS);
+
+        // ... ou génération de l'image
+        //image.generer(1600, 1600, 40);
+
+        // Coloriage de l'image
+        image.colorierImage();
+
+        // Ecriture de l'image
+        image.write(IMAGE_OUT_NILS);
+
+        // Récupération du nombre final de clocks
+        long int fin = clock();
+
+        // Affichage du temps du traitement
+        cout << "Traitement terminé en " << (fin-debut)/CLOCKS_PER_SEC << " secondes et " << ((fin-debut)%CLOCKS_PER_SEC)/1000 << " millisecondes." << endl;
+        
+    } catch (ExceptionTP1 const& e) {
+        cout << "Erreur : " << e.what() << endl;
+    }
+    catch (exception const& e) {
+        cout << "Erreur non traitée : " << e.what() << endl;
+    }
     
     return 0;
 }

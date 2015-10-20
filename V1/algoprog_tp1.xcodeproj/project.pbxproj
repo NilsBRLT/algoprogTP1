@@ -27,6 +27,7 @@
 /* Begin PBXFileReference section */
 		29BA4C0E1BC5CD710047C698 /* Pixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
 		29BA4C0F1BC5CD710047C698 /* Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixel.h; sourceTree = "<group>"; };
+		29C654D21BD6BBCE00CEA3FE /* ExceptionTP1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionTP1.h; sourceTree = "<group>"; };
 		5DDE74561BBC461D00260B11 /* algoprog_tp1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algoprog_tp1; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDE74591BBC461D00260B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = algoprog_tp1/main.cpp; sourceTree = SOURCE_ROOT; };
 		5DDE74601BBC473E00260B11 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				5DDE74611BBC5C6A00260B11 /* image.cpp */,
+				29C654D21BD6BBCE00CEA3FE /* ExceptionTP1.h */,
 				5DDE74621BBC5C6A00260B11 /* image.h */,
 				29BA4C0E1BC5CD710047C698 /* Pixel.cpp */,
 				29BA4C0F1BC5CD710047C698 /* Pixel.h */,
