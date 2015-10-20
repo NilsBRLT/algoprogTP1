@@ -28,8 +28,7 @@ public:
     Image();
     ~Image();
     int read(string filepath);
-    Image genererPpm();
-    void generer(int largeur, int hauteur);
+    void generer(int largeur, int hauteur, int pourcentageNoir);
     void colorierImage();
     void write(string filepath);
     void writeColor(Pixel pixel, ofstream file);

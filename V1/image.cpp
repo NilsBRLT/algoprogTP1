@@ -23,6 +23,7 @@ int Image::read(string filepath) {
     
     if (ifs.is_open()) {
 //        srand(time_t(NULL));
+        m_pixels.clear();
         string bufferLigne = "";
         int numeroLigne = 0;
         char c = ifs.get();
@@ -77,21 +78,28 @@ int Image::read(string filepath) {
     return 0;
 }
 
-void Image::generer(int largeur, int hauteur) {
+void Image::generer(int largeur, int hauteur, int pourcentageNoir) {
     m_largeur = largeur;
     m_hauteur = hauteur;
 
-        m_type = CODE_PPM;
-        
-        m_pixels.clear();
-        
-        for (int i=0; i<m_largeur*m_hauteur; i++) {
-
-                    int color = rand() % 2;
-                    Pixel* pix = new Pixel(color, color, color);
-                    m_pixels.push_back(pix);
+    m_type = CODE_PPM;
+    
+    m_pixels.clear();
+    
+    for (int i=0; i<m_largeur*m_hauteur; i++) {
+        int noir = rand() % 100;
+        Pixel* pix;
+        if (noir <= pourcentageNoir) {
+            pix = new Pixel();
+        } else {
+            pix = new Pixel(rand()%NB_COULEURS, rand()%NB_COULEURS, rand()%NB_COULEURS);
         }
+        
+        
+        pix->setRepresentant(pix);
+        m_pixels.push_back(pix);
     }
+}
 
 void Image::write(string filepath) {
     // Création d'un fichier (mode out)
