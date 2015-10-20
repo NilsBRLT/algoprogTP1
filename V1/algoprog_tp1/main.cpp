@@ -11,31 +11,41 @@
 #include "image.h"
 #include "Pixel.h"
 #include <vector>
-#include <time.h>       /* time_t, struct tm, difftime, time, mktime */
+#include <time.h>
 
 #define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france.pbm"
 #define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france.pbm"
 #define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france_out_new.ppm"
-#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france_out.ppm"
+#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france_out_new.ppm"
 
 int main () {
+    // Initialisation de l'aléatoire
     srand(time_t(NULL));
     
-    long int debut = clock();
         
     Image image = Image();
     
-    //image.read(IMAGE_IN_NILS);
-//    image.read(IMAGE_IN_PA);
-    image.generer(1600, 1600, 40);
+    // Récupération du nombre inital de clocks
+    long int debut = clock();
     
+    // Lecture de l'image...
+    image.read(IMAGE_IN_NILS);
+//    image.read(IMAGE_IN_PA);
+    
+    // ... ou génération de l'image
+    //image.generer(1600, 1600, 40);
+    
+    // Coloriage de l'image
     image.colorierImage();
     
+    // Ecriture de l'image
     image.write(IMAGE_OUT_NILS);
 //    image.write(IMAGE_OUT_PA);
     
+    // Récupération du nombre final de clocks
     long int fin = clock();
     
+    // Affichage du temps du traitement
     cout << "Traitement terminé en " << (fin-debut)/CLOCKS_PER_SEC << " secondes et " << ((fin-debut)%CLOCKS_PER_SEC)/1000 << " millisecondes." << endl;
     
     return 0;

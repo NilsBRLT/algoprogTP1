@@ -10,37 +10,33 @@
 #define __algoprog_tp1__Pixel__
 
 #include <stdio.h>
-#include <iostream>     // std::cout
+#include <iostream>
 #include <string>
 
 using namespace std;
-class Maillon;
 
 class Pixel {
 public:
+    // Constructeurs et destructeur
     Pixel();
-    Pixel(Pixel* pixel);
     Pixel(int rouge, int vert, int bleu);
     ~Pixel();
     
-    bool nEstPasNoir();
-    string getString() const;
+    // Accesseurs
     int getRouge();
     int getVert();
     int getBleu();
-    bool estEgal(Pixel* pixel);
-    void setCouleur(int rouge, int vert, int bleu);
-    
-    // NIQUE LES MAILLONS
-    
-    void setRepresentant(Pixel* pixel);
     Pixel* getRepresentant();
-    
-    void setSuivant(Pixel* pixel);
     Pixel* getSuivant();
+    int getSetSize();    
     
+    // Mutateurs
+    void setRepresentant(Pixel* pixel);
+    void setSuivant(Pixel* pixel);
+    
+    // Méthodes utiles à la classe
+    bool nEstPasNoir();
     void unionChaines(Pixel* representant2);
-    int getSetSize();
     void incrementSize(int size);
     
 private:
