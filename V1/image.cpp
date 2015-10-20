@@ -164,25 +164,6 @@ void Image::writeColor(Pixel pixel, ofstream file) {
     
 }
 
-Maillon* Image::findSet(Pixel* pixel) {
-    for (int i = 0; i < m_sets.size(); i++) {
-        
-        Maillon* maillon = m_sets[i];
-        do {
-            if (maillon->getPixel()->estEgal(pixel)) {
-                return maillon->getRepresentant();
-            }
-            maillon = maillon->getSuivant();
-        } while(maillon != nullptr);
-    }
-    return nullptr;
-}
-
-Maillon* Image::makeSet(Pixel* pixel) {
-    pixel->setCouleur(rand()%255, rand()%255, rand()%255);
-    return new Maillon(pixel);
-}
-
 void Image::colorierImage() {
 
     m_type = CODE_PPM;

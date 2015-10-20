@@ -15,7 +15,6 @@
 #include <time.h>
 #include <stdio.h>
 #include "Pixel.h"
-#include "Maillon.h"
 
 using namespace std;
 
@@ -31,8 +30,6 @@ public:
     int read(string filepath);
     Image genererPpm();
     void generer(int largeur, int hauteur);
-    Maillon* makeSet(Pixel* pixel);
-    Maillon* findSet(Pixel* pixel);
     void colorierImage();
     void write(string filepath);
     void writeColor(Pixel pixel, ofstream file);
@@ -40,11 +37,7 @@ private:
     string m_type;
     int m_largeur;
     int m_hauteur;
-    vector<Pixel*> m_pixels;
-    vector<Maillon*> m_sets;
-    
-    
-    int compteChiffresDansNombre(int nombre);
+    vector<Pixel*> m_pixels;    
 };
 
 #endif /* defined(__algoprog_tp1__image__) */
