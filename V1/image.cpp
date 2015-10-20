@@ -25,10 +25,7 @@ int Image::read(string filepath) {
 //        srand(time_t(NULL));
         string bufferLigne = "";
         int numeroLigne = 0;
-        
         char c = ifs.get();
-        int ligne = 0;
-        int colonne = 0;
         
         while (ifs.good()) {
             bufferLigne += c;
@@ -51,16 +48,8 @@ int Image::read(string filepath) {
                 } else {
                     pix = new Pixel();
                 }
-                pix->setColonne(colonne);
-                pix->setLigne(ligne);
                 pix->setRepresentant(pix);
                 m_pixels.push_back(pix);
-                colonne++;
-                if (colonne >= m_largeur) {
-                    colonne = 0;
-                    ligne++;
-                }
-                
             }
             c = ifs.get();
         }
@@ -191,7 +180,7 @@ void Image::colorierImage() {
         if (pix->nEstPasNoir()) {
             
             // Voisin de droite
-            if (pix->getColonne() < m_largeur - 1 && m_pixels[i+1]->nEstPasNoir()) {
+            if (i % m_largeur < m_largeur - 1 && m_pixels[i+1]->nEstPasNoir()) {
                 //Maillon* m1 = findSet(&pix);
                 //Maillon* m2 = findSet(&m_pixels[i+1]);
                 
@@ -204,7 +193,7 @@ void Image::colorierImage() {
             }
             
             // Voisin du bas
-            if (pix->getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur]->nEstPasNoir()) {
+            if (i / m_largeur < m_hauteur - 1 && m_pixels[i+m_largeur]->nEstPasNoir()) {
                 Pixel* p1 = pix->getRepresentant();
                 Pixel* p2 = m_pixels[i+m_largeur]->getRepresentant();
                 

@@ -16,8 +16,6 @@ Pixel::Pixel() {
 
 Pixel::Pixel(Pixel* pixel) {
     setCouleur(pixel->getRouge(), pixel->getVert(), pixel->getBleu());
-    setColonne(pixel->getColonne());
-    setLigne(pixel->getLigne());
     setSuivant(nullptr);
     m_setSize = 1;
 }
@@ -52,22 +50,6 @@ int Pixel::getVert() {
 
 int Pixel::getBleu() {
     return m_bleu;
-}
-
-int Pixel::getLigne() {
-    return m_ligne;
-}
-
-int Pixel::getColonne() {
-    return m_colonne;
-}
-
-void Pixel::setLigne(int ligne) {
-    m_ligne = ligne;
-}
-
-void Pixel::setColonne(int colonne) {
-    m_colonne = colonne;
 }
 
 void Pixel::setCouleur(int rouge, int vert, int bleu) {
