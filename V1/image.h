@@ -22,6 +22,7 @@ using namespace std;
 #define CODE_PBM "P1"
 #define CODE_PPM "P3"
 #define NB_COULEURS 255
+#define TAILLE_MAX_LIGNE 70
 
 class Image {
 public:
@@ -35,12 +36,11 @@ public:
     void colorierImage();
     void write(string filepath);
     void writeColor(Pixel pixel, ofstream file);
-    void testerUnion();
 private:
     string m_type;
     int m_largeur;
     int m_hauteur;
-    vector<Pixel> m_pixels;
+    vector<Pixel*> m_pixels;
     vector<Maillon*> m_sets;
     
     

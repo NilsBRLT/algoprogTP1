@@ -44,19 +44,23 @@ int Image::read(string filepath) {
                 bufferLigne = "";
             }
             if ((c == '0' || c == '1' ) && numeroLigne >= 2) {
-                int val = 0;
+                Pixel* pix;
                 if (c == '0') {
-                    val = NB_COULEURS; // Blanc
+                    pix = new Pixel(rand()%NB_COULEURS, rand()%NB_COULEURS, rand()%NB_COULEURS);
+
+                } else {
+                    pix = new Pixel();
                 }
-                Pixel pix = Pixel(val, val, val);
-                pix.setColonne(colonne);
-                pix.setLigne(ligne);
+                pix->setColonne(colonne);
+                pix->setLigne(ligne);
+                pix->setRepresentant(pix);
                 m_pixels.push_back(pix);
                 colonne++;
                 if (colonne >= m_largeur) {
                     colonne = 0;
                     ligne++;
                 }
+                
             }
             c = ifs.get();
         }
@@ -95,7 +99,7 @@ void Image::generer(int largeur, int hauteur) {
         for (int i=0; i<m_largeur*m_hauteur; i++) {
 
                     int color = rand() % 2;
-                    Pixel pix = Pixel(color, color, color);
+                    Pixel* pix = new Pixel(color, color, color);
                     m_pixels.push_back(pix);
         }
     }
@@ -123,22 +127,22 @@ void Image::write(string filepath) {
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
 //            string pixelString = m_pixels[i].getString();
-            string rouge = to_string(m_pixels[i].getRouge()) + " ";
-            if ((ligneSize+rouge.size())/70 >= 1) {
+            string rouge = to_string(m_pixels[i]->getRouge()) + " ";
+            if ((ligneSize+rouge.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
             }
             ofs << rouge;
             ligneSize+= rouge.size();
-            string vert = to_string(m_pixels[i].getVert()) + " ";
-            if ((ligneSize+vert.size())/70 >= 1) {
+            string vert = to_string(m_pixels[i]->getVert()) + " ";
+            if ((ligneSize+vert.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
             }
             ofs << vert;
             ligneSize+= vert.size();
-            string bleu = to_string(m_pixels[i].getBleu()) + " ";
-            if ((ligneSize+bleu.size())/70 >= 1) {
+            string bleu = to_string(m_pixels[i]->getBleu()) + " ";
+            if ((ligneSize+bleu.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
             }
@@ -192,26 +196,26 @@ void Image::colorierImage() {
         }
     }
     */
-    for (int i = 0; i < m_pixels.size(); i++) {
-        if (m_pixels[i].nEstPasNoir()) {
-            m_pixels[i].setCouleur(rand()%255, rand()%255, rand()%255);
-            m_pixels[i].setRepresentant(&m_pixels[i]);
-        }
-    }
-    
+//    for (int i = 0; i < m_pixels.size(); i++) {
+//        if (m_pixels[i].nEstPasNoir()) {
+//            m_pixels[i].setCouleur(rand()%NB_COULEURS, rand()%NB_COULEURS, rand()%NB_COULEURS);
+//            m_pixels[i].setRepresentant(&m_pixels[i]);
+//        }
+//    }
+//
     // ETAPE 2 - Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
     for (int i = 0; i < m_pixels.size(); i++) {
         
-        Pixel pix = m_pixels[i];
-        if (pix.nEstPasNoir()) {
+        Pixel* pix = m_pixels[i];
+        if (pix->nEstPasNoir()) {
             
             // Voisin de droite
-            if (pix.getColonne() < m_largeur - 1 && m_pixels[i+1].nEstPasNoir()) {
+            if (pix->getColonne() < m_largeur - 1 && m_pixels[i+1]->nEstPasNoir()) {
                 //Maillon* m1 = findSet(&pix);
                 //Maillon* m2 = findSet(&m_pixels[i+1]);
                 
-                Pixel* p1 = pix.getRepresentant();
-                Pixel* p2 = m_pixels[i+1].getRepresentant();
+                Pixel* p1 = pix->getRepresentant();
+                Pixel* p2 = m_pixels[i+1]->getRepresentant();
                                 
                 if (p1 != p2) {
                     p1->unionChaines(p2);
@@ -219,9 +223,9 @@ void Image::colorierImage() {
             }
             
             // Voisin du bas
-            if (pix.getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur].nEstPasNoir()) {
-                Pixel* p1 = pix.getRepresentant();
-                Pixel* p2 = m_pixels[i+m_largeur].getRepresentant();
+            if (pix->getLigne() < m_hauteur - 1 && m_pixels[i+m_largeur]->nEstPasNoir()) {
+                Pixel* p1 = pix->getRepresentant();
+                Pixel* p2 = m_pixels[i+m_largeur]->getRepresentant();
                 
                 if (p1 != p2) {
                     p1->unionChaines(p2);

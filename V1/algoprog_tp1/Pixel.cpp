@@ -11,6 +11,7 @@
 
 Pixel::Pixel() {
     m_setSize = 0;
+    setCouleur(0,0,0);
 }
 
 Pixel::Pixel(Pixel* pixel) {
@@ -27,6 +28,7 @@ Pixel::Pixel(int rouge, int vert, int bleu) {
     m_bleu = bleu;
     setSuivant(nullptr);
     m_setSize = 1;
+    setRepresentant(this);
 }
 
 Pixel::~Pixel() {
@@ -114,6 +116,7 @@ void Pixel::unionChaines(Pixel* representant2) {
 //            cout << representant2->getSetSize() <<endl;
 //        cout << "québlo" << endl;
 //        dernierS1->setSuivant(deuxiemeS2);
+//        this = representant2;
 //
 //    } else {
         // Le premier set sera plus long à parcouri : on parcours S2
