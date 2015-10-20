@@ -127,21 +127,21 @@ void Image::write(string filepath) {
         for (int i = 0; i < m_pixels.size(); i++) {
             // Préparation de pixels
 //            string pixelString = m_pixels[i].getString();
-            string rouge = to_string(m_pixels[i]->getRouge()) + " ";
+            string rouge = to_string(m_pixels[i]->getRepresentant()->getRouge()) + " ";
             if ((ligneSize+rouge.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
             }
             ofs << rouge;
             ligneSize+= rouge.size();
-            string vert = to_string(m_pixels[i]->getVert()) + " ";
+            string vert = to_string(m_pixels[i]->getRepresentant()->getVert()) + " ";
             if ((ligneSize+vert.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
             }
             ofs << vert;
             ligneSize+= vert.size();
-            string bleu = to_string(m_pixels[i]->getBleu()) + " ";
+            string bleu = to_string(m_pixels[i]->getRepresentant()->getBleu()) + " ";
             if ((ligneSize+bleu.size()) >= TAILLE_MAX_LIGNE) {
                 ligneSize = 0;
                 ofs << '\n';
