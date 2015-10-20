@@ -19,14 +19,12 @@
 #define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/carte_france_out.ppm"
 
 int main () {
-    double seconds;
-    time_t start;
-    time(&start);  /* get current time; same as: now = time(NULL)  */
     srand(time_t(NULL));
+    
+    long int debut = clock();
         
     Image image = Image();
     
-        
     image.read(IMAGE_IN_NILS);
 //    image.read(IMAGE_IN_PA);
     
@@ -35,8 +33,10 @@ int main () {
 //    image.generer(5, 5);
     image.write(IMAGE_OUT_NILS);
 //    image.write(IMAGE_OUT_PA);
-    seconds = difftime(time(NULL), start);
-    cout << "fini en " << seconds << " seconds";
+    
+    long int fin = clock();
+    
+    cout << "Traitement terminé en " << (fin-debut)/CLOCKS_PER_SEC << " secondes et " << ((fin-debut)%CLOCKS_PER_SEC)/1000 << " millisecondes." << endl;
     
     return 0;
 }
