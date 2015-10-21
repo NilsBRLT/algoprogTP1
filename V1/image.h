@@ -38,6 +38,8 @@ public:
     void colorierImage();
     void write(string filepath) throw(ExceptionTP1);
     int writePixel(Pixel* pixel, ofstream& file, int lineSize);
+    Pixel* findSet(Pixel* pixel);
+    void makeSet(Pixel* pixel);
     
 private:
     int m_largeur;

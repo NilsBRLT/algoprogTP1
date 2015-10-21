@@ -20,7 +20,6 @@ Pixel::Pixel(int rouge, int vert, int bleu) {
     m_rouge = rouge;
     m_vert = vert;
     m_bleu = bleu;
-    setSuivant(nullptr);
     m_setSize = 1;
 }
 

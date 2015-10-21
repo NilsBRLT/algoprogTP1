@@ -53,9 +53,8 @@ int Image::read(string filepath) throw(ExceptionTP1) {
                     pix = new Pixel();
                 }
                 
-                // Le pixel est son propre représentant au début de l'algorithme ; on l'ajoute au tableau de *Pixels
-                pix->setRepresentant(pix);
-                m_pixels.push_back(pix);
+                // Le pixel est son propre représentant au début de l'algorithme ; il est donc le seul de son ensemble
+                makeSet(pix);
             }
             c = ifs.get();
         }
@@ -166,8 +165,8 @@ void Image::colorierImage() {
             
             // Voisin de droite
             if (i % m_largeur < m_largeur - 1 && m_pixels[i+1]->nEstPasNoir()) {
-                Pixel* p1 = pix->getRepresentant();
-                Pixel* p2 = m_pixels[i+1]->getRepresentant();
+                Pixel* p1 = findSet(pix);
+                Pixel* p2 = findSet(m_pixels[i+1]);
                                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
@@ -177,8 +176,8 @@ void Image::colorierImage() {
             
             // Voisin du bas
             if (i / m_largeur < m_hauteur - 1 && m_pixels[i+m_largeur]->nEstPasNoir()) {
-                Pixel* p1 = pix->getRepresentant();
-                Pixel* p2 = m_pixels[i+m_largeur]->getRepresentant();
+                Pixel* p1 = findSet(pix);
+                Pixel* p2 = findSet(m_pixels[i+m_largeur]);
                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
@@ -189,9 +188,15 @@ void Image::colorierImage() {
     }
 }
 
+Pixel* Image::findSet(Pixel *pixel) {
+    return pixel->getRepresentant();
+}
 
-
-
+void Image::makeSet(Pixel *pixel) {
+    pixel->setRepresentant(pixel);
+    pixel->setSuivant(nullptr);
+    m_pixels.push_back(pixel);
+}
 
 
 
