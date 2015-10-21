@@ -170,7 +170,12 @@ void Image::colorierImage() {
                                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
-                    p1->unionChaines(p2);
+                    
+                    // Union de la question BONUS
+                    p1->unionPostHead(p2);
+                    
+                    // Union avec pointeur vers queue
+                    //p1->unionPostTail(p2);
                 }
             }
             
@@ -181,7 +186,12 @@ void Image::colorierImage() {
                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
-                    p1->unionChaines(p2);
+                    
+                    // Union de la question BONUS
+                    p1->unionPostHead(p2);
+                    
+                    // Union avec pointeur vers queue
+                    //p1->unionPostTail(p2);
                 }
             }
         }
@@ -195,6 +205,7 @@ Pixel* Image::findSet(Pixel *pixel) {
 void Image::makeSet(Pixel *pixel) {
     pixel->setRepresentant(pixel);
     pixel->setSuivant(nullptr);
+    pixel->setQueue(pixel);
     m_pixels.push_back(pixel);
 }
 

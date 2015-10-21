@@ -13,9 +13,9 @@
 #include <time.h>
 
 #define IMAGE_IN_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france.pbm"
-#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/ImagesTests/celtique.pbm"
+#define IMAGE_IN_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/ImagesTests/carte_france.pbm"
 #define IMAGE_OUT_PA "/Users/portepa/development/algoprog_tp1/V1/carte_france_out_new.ppm"
-#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/ImagesTests/celtique_out2.ppm"
+#define IMAGE_OUT_NILS "/Users/Nils/Desktop/Bureau/Dev/C++/algoprogTP1/V1/ImagesTests/carte_france_out2.ppm"
 
 int main () {
     // Initialisation de l'aléatoire
