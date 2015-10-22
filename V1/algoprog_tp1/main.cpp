@@ -29,7 +29,7 @@ int main () {
         image.read(IMAGE_IN_NILS);
 
         // ... ou génération de l'image
-        //image.generer(1600, 1600, 40);
+        image.generer(1600, 1600, 40);
 
         // Coloriage de l'image
         image.colorierImage();

@@ -96,7 +96,7 @@ void Image::generer(int largeur, int hauteur, int pourcentageNoir) {
         }
         
         // Le pixel est son propre représentant au début de l'algorithme ; on l'ajoute au tableau de *Pixels
-        pix->setRepresentant(pix);
+        makeSet(pix);
         m_pixels.push_back(pix);
     }
 }
