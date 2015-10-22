@@ -121,7 +121,7 @@ void Image::write(string filepath) throw(ExceptionTP1) {
         
         // Boucle d'écriture des pixels
         int lineSize = 0;
-        for (int i = 0; i < m_pixels.size(); i++) {
+        for (int i = 0; i < (int)m_pixels.size(); i++) {
             lineSize = writePixel(m_pixels[i], ofs, lineSize);
         }
     
@@ -172,7 +172,7 @@ void Image::colorierImage(bool unionBonus) {
     // Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
     // On a finalement besoin de traiter uniquement les pixels à droite et en bas du pixel courant
     
-    for (int i = 0; i < m_pixels.size(); i++) {
+    for (int i = 0; i < (int)m_pixels.size(); i++) {
         Pixel* pix = m_pixels[i];
         if (pix->nEstPasNoir()) {
             // On ne traite le pixel que s'il n'est pas noir

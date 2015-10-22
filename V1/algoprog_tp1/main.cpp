@@ -16,8 +16,8 @@
 #define UNION "BONUS"
 
 void usageApplication() {
-    cout << "Usage 1 (via fichier .pbm) : algoprog_tp1 image_entrée image_sortie [BONUS]" << endl;
-    cout << "Usage 2 (aléatoire) : algoprog_tp1 RANDOM X image_sortie [BONUS] (avec X le pourcentage de pixel noir, compris entre 0 et 100)" << endl;
+    cout << "Usage 1 (via fichier .pbm) : algoprog image_entrée image_sortie [BONUS]" << endl;
+    cout << "Usage 2 (aléatoire) : algoprog RANDOM X image_sortie [BONUS] (avec X le pourcentage de pixel noir, compris entre 0 et 100)" << endl;
 }
 
 int main (int argc, char *argv[]) {
