@@ -17,7 +17,8 @@
 
 void usageApplication() {
     cout << "Usage 1 (via fichier .pbm) : algoprog image_entrée image_sortie [BONUS]" << endl;
-    cout << "Usage 2 (aléatoire) : algoprog RANDOM X image_sortie [BONUS] (avec X le pourcentage de pixel noir, compris entre 0 et 100)" << endl;
+    cout << "Usage 2 (aléatoire) : algoprog RANDOM X L H image_sortie [BONUS] (avec X le pourcentage de pixel noir, compris entre 0 et 100 / L > 0 la largeur de l'image, H > 0 la hauteur de l'image )" << endl;
+    cout << "L'ordre des paramètres ne peut être modifié." << endl;
 }
 
 int main (int argc, char *argv[]) {
@@ -25,6 +26,8 @@ int main (int argc, char *argv[]) {
     string fichierEntree;
     string fichierSortie;
     int pourcentagePixelsNoirs = 0;
+    int largeur = 0;
+    int hauteur = 0;
     bool unionBonus = false;
     bool random = false;
     
@@ -47,13 +50,20 @@ int main (int argc, char *argv[]) {
                 
                 // On récupère le pourcentage de pixels noirs demandé
                 pourcentagePixelsNoirs = stoi(argv[2]);
-                if (pourcentagePixelsNoirs < 0 || pourcentagePixelsNoirs > 100) {
+                
+                // On récupère la largeur de l'image
+                largeur = stoi(argv[3]);
+                
+                // On récupère la hauteur
+                hauteur = stoi(argv[4]);
+                
+                if (hauteur < 0 || largeur < 0 || pourcentagePixelsNoirs < 0 || pourcentagePixelsNoirs > 100) {
                     usageApplication();
                     return 0;
                 }
                 
                 // On lit le nom du fichier de sortie
-                fichierSortie = argv[3];
+                fichierSortie = argv[5];
                 
             } else {
                 // Si le mode RANDOM n'est pas demandé
@@ -70,10 +80,16 @@ int main (int argc, char *argv[]) {
         }
     }
     
-    if (unionBonus) {
-        cout << "Traitement avec union bonus demandé." << endl;
+    // Informations pour l'utilisateur
+    if (random) {
+        cout << "Génération d'une image aléatoire." << endl;
     } else {
-        cout << "Traitement avec union classique demandé." << endl;
+        cout << "Génération à partir d'une image existante." << endl;
+    }
+    if (unionBonus) {
+        cout << "Traitement avec union bonus." << endl;
+    } else {
+        cout << "Traitement avec union classique." << endl;
     }
         
     Image image = Image();
@@ -85,7 +101,7 @@ int main (int argc, char *argv[]) {
         
         if (random) {
             // Génération de l'image...
-            image.generer(1600, 1600, pourcentagePixelsNoirs);
+            image.generer(largeur, hauteur, pourcentagePixelsNoirs);
         } else {
             // ... ou lecture de l'image
             image.read(fichierEntree);
