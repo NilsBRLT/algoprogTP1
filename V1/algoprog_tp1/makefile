@@ -1,24 +1,18 @@
-CC=/opt/gcc-4.9.3/bin/gcc
-CFLAGS=-std=c++0x -W -Wall -ansi -pedantic
+CC=g++
+CFLAGS=-std=c++11 -W -Wall
 EXEC=files
 
-all: $(EXEC)
-
-files: pixel.o maillon.o image.o main.o
-	$(CC) -o pixel.o maillon.o image.o main.o -o algoprog
+files: pixel.o image.o main.o
+	$(CC) pixel.o image.o main.o -o algoprog
 
 main.o: main.cpp 
 	$(CC) -o main.o -c main.cpp $(CFLAGS)
 
-maillon.o: maillon.cpp
-	$(CC) -o maillon.o -c maillon.cpp $(CFLAGS)
+pixel.o: pixel.cpp
+	$(CC) -o pixel.o -c pixel.cpp $(CFLAGS)
 
 image.o: image.cpp
 	$(CC) -o image.o -c image.cpp $(CFLAGS)
-
-pixel.o: Pixel.cpp
-	$(CC) -o pixel.o -c Pixel.cpp $(CFLAGS)
-
 
 clean:
 	rm -rf *.o
