@@ -32,7 +32,7 @@ public:
     // Méthodes utiles à la classe
     int read(string filepath) throw(ExceptionTP1);
     void generer(int largeur, int hauteur, int pourcentageNoir);
-    void colorierImage();
+    void colorierImage(bool unionBonus);
     void write(string filepath) throw(ExceptionTP1);
     int writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(ExceptionTP1);
     Pixel* findSet(Pixel* pixel);

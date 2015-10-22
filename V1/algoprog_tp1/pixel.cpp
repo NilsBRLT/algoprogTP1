@@ -67,7 +67,7 @@ Pixel* Pixel::getQueue() {
     return m_queue;
 }
 
-void Pixel::unionPostHead(Pixel* representant2) {
+void Pixel::unionBonus(Pixel* representant2) {
     // Soient this le représentant du set S1 et representant2 celui du set S2
     
     if (representant2->getSetSize() > this->getSetSize()) {
@@ -110,7 +110,7 @@ void Pixel::unionPostHead(Pixel* representant2) {
     }
 }
 
-void Pixel::unionPostTail(Pixel *representant2) {
+void Pixel::unionClassique(Pixel *representant2) {
     if (representant2->getSetSize() > this->getSetSize()) {
         // taille(S2) > taille(S1)
         // On change donc les représentants des pixels de S1 (le set le plus court)

@@ -38,8 +38,8 @@ public:
     
     // Méthodes utiles à la classe
     bool nEstPasNoir();
-    void unionPostTail(Pixel* representant2);
-    void unionPostHead(Pixel* representant2);
+    void unionClassique(Pixel* representant2); // Fonction Union de la spécification (union est un keyword de C++)
+    void unionBonus(Pixel* representant2); // Fonction Union2 de la spécification
     void incrementSize(int size);
     
 private:
