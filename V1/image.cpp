@@ -42,6 +42,11 @@ int Image::read(string filepath) throw(ExceptionTP1) {
                         m_largeur = stoi(bufferLigne.substr(0, pos));
                         m_hauteur = stoi(bufferLigne.substr(pos));
                     }
+                    if (numeroLigne == 0) {
+                        if (bufferLigne[0] != 'P' || bufferLigne[1] != '1' || bufferLigne[2] != '\n') {
+                            throw ExceptionTP1(ERREUR_FORMAT);
+                        }
+                    }
                     numeroLigne++;
                     bufferLigne = "";
                 }
@@ -168,7 +173,7 @@ int Image::writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(Exceptio
     }
 }
 
-void Image::colorierImage() {
+void Image::colorierImage(bool unionBonus) {
     // Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
     // On a finalement besoin de traiter uniquement les pixels à droite et en bas du pixel courant
     
@@ -184,12 +189,13 @@ void Image::colorierImage() {
                                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
-                    
-                    // Union de la question BONUS
-                    p1->unionPostHead(p2);
-                    
-                    // Union avec pointeur vers queue
-                    //p1->unionPostTail(p2);
+                    if (unionBonus) {
+                        // Union de la question BONUS
+                        p1->unionBonus(p2);
+                    } else {
+                        // Union avec pointeur vers queue
+                        p1->unionClassique(p2);
+                    }
                 }
             }
             
@@ -200,12 +206,13 @@ void Image::colorierImage() {
                 
                 if (p1 != p2) {
                     // On fusionne les ensembles si les représentants des deux ensembles ne sont pas les mêmes
-                    
-                    // Union de la question BONUS
-                    p1->unionPostHead(p2);
-                    
-                    // Union avec pointeur vers queue
-                    //p1->unionPostTail(p2);
+                    if (unionBonus) {
+                        // Union de la question BONUS
+                        p1->unionBonus(p2);
+                    } else {
+                        // Union avec pointeur vers queue
+                        p1->unionClassique(p2);
+                    }
                 }
             }
         }
