@@ -21,46 +21,52 @@ int Image::read(string filepath) throw(ExceptionTP1) {
     
     if (ifs.is_open()) {
         
-        // Initialisation des variables utiles à la lecture du fichier
-        m_pixels.clear();
-        string bufferLigne = "";
-        int numeroLigne = 0;
-        char c = ifs.get();
-        
-        while (ifs.good()) {
-            bufferLigne += c;
+        try {
+            // Initialisation des variables utiles à la lecture du fichier
+            m_pixels.clear();
+            string bufferLigne = "";
+            int numeroLigne = 0;
+            char c = ifs.get();
             
-            // Lecture du header (largeur et hauteur notamment)
-            if (c == '\n') {
-                if (numeroLigne == 1) {
-                    size_t pos = bufferLigne.find(" ");
-                    m_largeur = stoi(bufferLigne.substr(0, pos));
-                    m_hauteur = stoi(bufferLigne.substr(pos));
-                }
-                numeroLigne++;
-                bufferLigne = "";
-            }
-            
-            // Lecture des pixels de l'image
-            if ((c == '0' || c == '1' ) && numeroLigne >= 2) {
-                Pixel* pix;
-                if (c == '0') {
-                    // Création d'un pointeur sur Pixel coloré aléatoirement si le pixel était blanc
-                    pix = new Pixel(rand()%NB_COULEURS, rand()%NB_COULEURS, rand()%NB_COULEURS);
-
-                } else {
-                    // Création d'un pointeur sur Pixel noir si le pixel était noir
-                    pix = new Pixel();
+            while (ifs.good()) {
+                bufferLigne += c;
+                
+                // Lecture du header (largeur et hauteur notamment)
+                if (c == '\n') {
+                    if (numeroLigne == 1) {
+                        size_t pos = bufferLigne.find(" ");
+                        m_largeur = stoi(bufferLigne.substr(0, pos));
+                        m_hauteur = stoi(bufferLigne.substr(pos));
+                    }
+                    numeroLigne++;
+                    bufferLigne = "";
                 }
                 
-                // Le pixel est son propre représentant au début de l'algorithme ; il est donc le seul de son ensemble
-                makeSet(pix);
+                // Lecture des pixels de l'image
+                if ((c == '0' || c == '1' ) && numeroLigne >= 2) {
+                    Pixel* pix;
+                    if (c == '0') {
+                        // Création d'un pointeur sur Pixel coloré aléatoirement si le pixel était blanc
+                        pix = new Pixel(rand()%NB_COULEURS, rand()%NB_COULEURS, rand()%NB_COULEURS);
+
+                    } else {
+                        // Création d'un pointeur sur Pixel noir si le pixel était noir
+                        pix = new Pixel();
+                    }
+                    
+                    // Le pixel est son propre représentant au début de l'algorithme ; il est donc le seul de son ensemble
+                    makeSet(pix);
+                } else if (c != '0' && c != '1' && c != ' ' && c != '\n' && numeroLigne >= 2) {
+                    throw ExceptionTP1(ERREUR_FORMAT);
+                }
+                c = ifs.get();
             }
-            c = ifs.get();
+        } catch (exception e) {
+            throw ExceptionTP1(ERREUR_FORMAT);
         }
     }
     else {
-        throw ExceptionTP1(ERROR_READING);
+        throw ExceptionTP1(ERREUR_LECTURE);
     }
     
     // Fermeture du fichier .pbm
@@ -117,41 +123,45 @@ void Image::write(string filepath) throw(ExceptionTP1) {
     
     }
     else {
-        throw ExceptionTP1(ERROR_WRITING);
+        throw ExceptionTP1(ERREUR_ECRITURE);
     }
     
     ofs.close();
 }
 
-int Image::writePixel(Pixel* pixel, ofstream& file, int lineSize) {
-    // Ecriture de la composante rouge
-    string rouge = to_string(pixel->getRepresentant()->getRouge()) + " ";
-    if ((lineSize+rouge.size()) >= TAILLE_MAX_LIGNE) {
-        lineSize = 0;
-        file << '\n';
+int Image::writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(ExceptionTP1) {
+    try {
+        // Ecriture de la composante rouge
+        string rouge = to_string(pixel->getRepresentant()->getRouge()) + " ";
+        if ((lineSize+rouge.size()) >= TAILLE_MAX_LIGNE) {
+            lineSize = 0;
+            file << '\n';
+        }
+        lineSize += rouge.size();
+        file << rouge;
+                
+        // Ecriture de la composante verte
+        string vert = to_string(pixel->getRepresentant()->getVert()) + " ";
+        if ((lineSize+vert.size()) >= TAILLE_MAX_LIGNE) {
+            lineSize = 0;
+            file << '\n';
+        }
+        lineSize += vert.size();
+        file << vert;
+        
+        // Ecriture de la composante bleue
+        string bleu = to_string(pixel->getRepresentant()->getBleu()) + " ";
+        if ((lineSize+bleu.size()) >= TAILLE_MAX_LIGNE) {
+            lineSize = 0;
+            file << '\n';
+        }
+        lineSize += bleu.size();
+        file << bleu;
+            
+        return lineSize;
+    } catch (exception e) {
+        throw ExceptionTP1(ERREUR_DATA);
     }
-    lineSize += rouge.size();
-    file << rouge;
-    
-    // Ecriture de la composante verte
-    string vert = to_string(pixel->getRepresentant()->getVert()) + " ";
-    if ((lineSize+vert.size()) >= TAILLE_MAX_LIGNE) {
-        lineSize = 0;
-        file << '\n';
-    }
-    lineSize += vert.size();
-    file << vert;
-    
-    // Ecriture de la composante bleue
-    string bleu = to_string(pixel->getRepresentant()->getBleu()) + " ";
-    if ((lineSize+bleu.size()) >= TAILLE_MAX_LIGNE) {
-        lineSize = 0;
-        file << '\n';
-    }
-    lineSize += bleu.size();
-    file << bleu;
-    
-    return lineSize;
 }
 
 void Image::colorierImage() {

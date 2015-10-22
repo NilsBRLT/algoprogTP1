@@ -13,6 +13,11 @@
 #include <exception>
 #include <string>
 
+#define ERREUR_ECRITURE "impossible de créer le fichier de sortie."
+#define ERREUR_LECTURE "impossible de lire le fichier d'entrée (fichier inconnu ou accès refusé)"
+#define ERREUR_FORMAT "le format attendu dans le fichier .pbm n'est pas correct"
+#define ERREUR_DATA "la structure de données fournie ne permet pas la génération d'une image conforme"
+
 using namespace std;
 
 class ExceptionTP1 : public exception {

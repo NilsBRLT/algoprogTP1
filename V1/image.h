@@ -23,9 +23,6 @@ using namespace std;
 #define NB_COULEURS 255
 #define TAILLE_MAX_LIGNE 70
 
-#define ERROR_WRITING "impossible de créer le fichier de sortie."
-#define ERROR_READING "impossible de lire le fichier d'entrée (fichier inconnu ou accès refusé)"
-
 class Image {
 public:
     // Constructeur et destructeur
@@ -37,7 +34,7 @@ public:
     void generer(int largeur, int hauteur, int pourcentageNoir);
     void colorierImage();
     void write(string filepath) throw(ExceptionTP1);
-    int writePixel(Pixel* pixel, ofstream& file, int lineSize);
+    int writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(ExceptionTP1);
     Pixel* findSet(Pixel* pixel);
     void makeSet(Pixel* pixel);
     
