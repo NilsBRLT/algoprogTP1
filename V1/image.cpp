@@ -19,6 +19,10 @@ int Image::read(string filepath) throw(ExceptionTP1) {
     std::ifstream ifs;
     ifs.open (filepath, ifstream::in);
     
+    // Initialisation de l'aléatoire
+    // time(NULL) renvoie le nb de secondes depuis le 1/01/1970, ce qui change à chaque run, et nous prenons ainsi un nouveau seed de random
+    srand((unsigned int) time(NULL));
+    
     if (ifs.is_open()) {
         
         // Initialisation des variables utiles à la lecture du fichier
