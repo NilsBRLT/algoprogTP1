@@ -48,6 +48,12 @@ int main (int argc, char *argv[]) {
                 // Si le mode RANDOM est demandé
                 random = true;
                 
+                // On vérifie le nombre d'arguments dans le cas de l'union
+                if (argc < 7) {
+                    usageApplication();
+                    return 0;
+                }
+                
                 // On récupère le pourcentage de pixels noirs demandé
                 pourcentagePixelsNoirs = stoi(argv[2]);
                 
