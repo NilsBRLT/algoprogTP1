@@ -12,6 +12,7 @@
 #include "test.h"
 #include <vector>
 #include <time.h>
+#include <string.h>
 
 #define RANDOM "RANDOM"
 #define UNION "BONUS"
@@ -67,7 +68,7 @@ int main (int argc, char *argv[]) {
                 random = true;
                 
                 // On vérifie le nombre d'arguments dans le cas de l'union
-                if (argc < 7) {
+                if (argc < 6) {
                     usageApplication();
                     return 0;
                 }

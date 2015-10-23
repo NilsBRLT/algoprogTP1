@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include "Pixel.h"
+#include "pixel.h"
 #include "image.h"
 
 using namespace std;
