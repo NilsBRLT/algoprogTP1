@@ -9,3 +9,4 @@ Par exemple :
 	./algoprog in.pbm out.ppm BONUS
 	./algoprog RANDOM 40 1000 1000 out.ppm
 	./algoprog RANDOM 40 1000 1000 out.ppm BONUS
+Le paramètre « BONUS » permet d’utiliser la fonction d’union de la question bonus.
