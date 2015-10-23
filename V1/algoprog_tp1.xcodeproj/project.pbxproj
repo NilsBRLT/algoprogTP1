@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29B665E71BDA93E0009A8A8A /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29B665E51BDA93E0009A8A8A /* test.cpp */; };
 		29BA4C101BC5CD710047C698 /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29BA4C0E1BC5CD710047C698 /* Pixel.cpp */; };
 		5DDE745A1BBC461D00260B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74591BBC461D00260B11 /* main.cpp */; };
 		5DDE74631BBC5C6A00260B11 /* image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DDE74611BBC5C6A00260B11 /* image.cpp */; };
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		29B665E51BDA93E0009A8A8A /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		29B665E61BDA93E0009A8A8A /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		29BA4C0E1BC5CD710047C698 /* Pixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
 		29BA4C0F1BC5CD710047C698 /* Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixel.h; sourceTree = "<group>"; };
 		29C654D21BD6BBCE00CEA3FE /* ExceptionTP1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionTP1.h; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 				29BA4C0E1BC5CD710047C698 /* Pixel.cpp */,
 				29BA4C0F1BC5CD710047C698 /* Pixel.h */,
 				5DDE74591BBC461D00260B11 /* main.cpp */,
+				29B665E51BDA93E0009A8A8A /* test.cpp */,
+				29B665E61BDA93E0009A8A8A /* test.h */,
 			);
 			path = algoprog_tp1;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29BA4C101BC5CD710047C698 /* Pixel.cpp in Sources */,
+				29B665E71BDA93E0009A8A8A /* test.cpp in Sources */,
 				5DDE745A1BBC461D00260B11 /* main.cpp in Sources */,
 				5DDE74631BBC5C6A00260B11 /* image.cpp in Sources */,
 			);

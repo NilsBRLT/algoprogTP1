@@ -41,6 +41,7 @@ public:
     void unionClassique(Pixel* representant2); // Fonction Union de la spécification (union est un keyword de C++)
     void unionBonus(Pixel* representant2); // Fonction Union2 de la spécification
     void incrementSize(int size);
+    void afficherEnsemble();
     
 private:
     int m_rouge;

@@ -160,3 +160,13 @@ int Pixel::getSetSize() {
 void Pixel::incrementSize(int size) {
     m_setSize+= size;
 }
+
+void Pixel::afficherEnsemble() {
+    Pixel* parcours = this;
+    int i = 1;
+    while (parcours != nullptr) {
+        cout << "Pixel " << i << " (RVB) : " << parcours->getRepresentant()->getRouge() << " " << parcours->getRepresentant()->getVert() << " " << parcours->getRepresentant()->getBleu() << endl;
+        i++;
+        parcours = parcours->getSuivant();
+    }
+}

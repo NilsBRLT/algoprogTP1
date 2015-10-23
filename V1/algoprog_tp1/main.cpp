@@ -9,11 +9,13 @@
 // print the content of a text file.
 
 #include "image.h"
+#include "test.h"
 #include <vector>
 #include <time.h>
 
 #define RANDOM "RANDOM"
 #define UNION "BONUS"
+#define TEST "test"
 
 
 /**
@@ -30,6 +32,14 @@ void usageApplication() {
  * Fonction principale du programme
  **/
 int main (int argc, char *argv[]) {
+    
+    if (argc >= 2) {
+        if (strcmp(argv[1], TEST) == 0) {
+            Test test = Test();
+            test.run();
+            return 0;
+        }
+    }
         
     string fichierEntree;
     string fichierSortie;

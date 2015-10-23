@@ -276,5 +276,3 @@ void Image::makeSet(Pixel *pixel) {
 
 
 
-
-
