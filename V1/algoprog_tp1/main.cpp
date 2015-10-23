@@ -15,14 +15,22 @@
 #define RANDOM "RANDOM"
 #define UNION "BONUS"
 
+
+/**
+ * Précise les cas d'utilisation du programme à l'utilisateur
+ **/
 void usageApplication() {
     cout << "Usage 1 (via fichier .pbm) : algoprog image_entrée image_sortie [BONUS]" << endl;
     cout << "Usage 2 (aléatoire) : algoprog RANDOM X L H image_sortie [BONUS] (avec X le pourcentage de pixel noir, compris entre 0 et 100 / L > 0 la largeur de l'image, H > 0 la hauteur de l'image )" << endl;
     cout << "L'ordre des paramètres ne peut être modifié." << endl;
 }
 
+
+/**
+ * Fonction principale du programme
+ **/
 int main (int argc, char *argv[]) {
-    
+        
     string fichierEntree;
     string fichierSortie;
     int pourcentagePixelsNoirs = 0;

@@ -14,6 +14,12 @@ Image::Image() {
 Image::~Image() {
 }
 
+/**
+ * Lit une image au format PBM
+ * assume : filepath est une image au format .pbm
+ * guarantee : un tableau de *Pixel est généré ou une exception est levée
+ * exceptions possibles : ERREUR_LECTURE, ERREUR_FORMAT
+ **/
 int Image::read(string filepath) throw(ExceptionTP1) {
     // Ouverture du fichier .pbm
     std::ifstream ifs;
@@ -83,6 +89,12 @@ int Image::read(string filepath) throw(ExceptionTP1) {
     return 0;
 }
 
+
+/**
+ * Crée une image de manière aléatoire, avec un pourcentage de pixels noirs précisé au préalable
+ * assume : largeur > 0, hauteur > 0, 0 <= pourcentageNoir <= 100
+ * guarantee : un tableau de *Pixel est généré
+ **/
 void Image::generer(int largeur, int hauteur, int pourcentageNoir) {
     // Initialisation des attributs de this
     m_largeur = largeur;
@@ -106,6 +118,13 @@ void Image::generer(int largeur, int hauteur, int pourcentageNoir) {
     }
 }
 
+
+/**
+ * Ecrit une image au format PPM
+ * assume : filepath est un chemin possible vers un fichier de sortie .ppm
+ * guarantee : le fichier dont le chemin est fourni sera rempli conformément aux normes du format .ppm avec l'image coloriée
+ * exceptions possibles : ERREUR_ECRITURE, ERREUR_DATA
+ **/
 void Image::write(string filepath) throw(ExceptionTP1) {
     
     // Création d'un fichier (mode out)
@@ -138,6 +157,13 @@ void Image::write(string filepath) throw(ExceptionTP1) {
     ofs.close();
 }
 
+
+/**
+ * Ecrit un pixel dans un fichier
+ * assume : file est un fichier ouvert en écriture, pixel n'est pas nullptr
+ * guarantee : les trois composantes du pixel sont écrites dans le fichier sans qu'une ligne dépasse TAILLE_MAX_LIGNE (70) caractères
+ * exceptions possibles : ERREUR_DATA
+ **/
 int Image::writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(ExceptionTP1) {
     try {
         // Ecriture de la composante rouge
@@ -173,6 +199,12 @@ int Image::writePixel(Pixel* pixel, ofstream& file, int lineSize) throw(Exceptio
     }
 }
 
+
+/**
+ * Lie les *Pixel du tableau en différents ensembles. Chaque *Pixel d'un ensemble possède le même représentant
+ * assume : m_pixels n'est pas vide
+ * guarantee : les *Pixels sont liés par leur représentants respectifs
+ **/
 void Image::colorierImage(bool unionBonus) {
     // Pour chaque pixel blanc, pour chacun de ses voisins blancs, si ils ne sont pas dans le même ensemble alors faire l'union
     // On a finalement besoin de traiter uniquement les pixels à droite et en bas du pixel courant
@@ -219,10 +251,22 @@ void Image::colorierImage(bool unionBonus) {
     }
 }
 
+
+/**
+ * Retourne le représentant de pixel
+ * assume : pixel n'est pas nullptr
+ * guarantee : le pixel retourné n'est pas nullptr
+ **/
 Pixel* Image::findSet(Pixel *pixel) {
     return pixel->getRepresentant();
 }
 
+
+/**
+ * Transforme un *Pixel simple en un ensemble dont il est l'unique *Pixel, son propre représentant et sa propre queue. Il n'a pas de suivant
+ * assume : pixel n'est pas nullptr
+ * guarantee : pixel est un ensemble à lui seul et est ajouté au tableau de *Pixel.
+ **/
 void Image::makeSet(Pixel *pixel) {
     pixel->setRepresentant(pixel);
     pixel->setSuivant(nullptr);

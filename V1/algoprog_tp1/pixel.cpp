@@ -67,6 +67,49 @@ Pixel* Pixel::getQueue() {
     return m_queue;
 }
 
+/**
+ * Réalise l'union de deux ensembles de pixels
+ * assume : representant2 n'est pas nullptr, les deux ensembles sont distincts
+ * guarantee : création d'un ensemble unique à partir des deux ensembles d'entrée
+ **/
+void Pixel::unionClassique(Pixel *representant2) {
+    if (representant2->getSetSize() > this->getSetSize()) {
+        // taille(S2) > taille(S1)
+        // On change donc les représentants des pixels de S1 (le set le plus court)
+        
+        Pixel* parcoursS1 = this;
+        do {
+            parcoursS1->setRepresentant(this);
+            parcoursS1 = parcoursS1->getSuivant();
+        } while (parcoursS1 != nullptr);
+        
+        // On branche la tête de S1 à la queue de S2
+        representant2->getQueue()->setSuivant(this);
+        // On change la queue de S2
+        representant2->setQueue(this->getQueue());
+        
+    } else {
+        // taille(S1) > taille(S2)
+        // On change donc les représentants des pixels de S2 (le set le plus court)
+        
+        Pixel* parcoursS2 = representant2;
+        do {
+            parcoursS2->setRepresentant(this);
+            parcoursS2 = parcoursS2->getSuivant();
+        } while (parcoursS2 != nullptr);
+        
+        // On branche la tête de S2 à la queue de S1
+        this->getQueue()->setSuivant(representant2);
+        // On change la queue de S1
+        this->setQueue(representant2->getQueue());
+    }
+}
+
+/**
+ * Réalise l'union de deux ensembles de pixels (BONUS)
+ * assume : representant2 n'est pas nullptr, les deux ensembles sont distincts
+ * guarantee : création d'un ensemble unique à partir des deux ensembles d'entrée
+ **/
 void Pixel::unionBonus(Pixel* representant2) {
     // Soient this le représentant du set S1 et representant2 celui du set S2
     
@@ -107,39 +150,6 @@ void Pixel::unionBonus(Pixel* representant2) {
         this->setSuivant(representant2);
         this->incrementSize(representant2->getSetSize());
         dernierS2->setSuivant(deuxiemeS1);
-    }
-}
-
-void Pixel::unionClassique(Pixel *representant2) {
-    if (representant2->getSetSize() > this->getSetSize()) {
-        // taille(S2) > taille(S1)
-        // On change donc les représentants des pixels de S1 (le set le plus court)
-        
-        Pixel* parcoursS1 = this;
-        do {
-            parcoursS1->setRepresentant(this);
-            parcoursS1 = parcoursS1->getSuivant();
-        } while (parcoursS1 != nullptr);
-        
-        // On branche la tête de S1 à la queue de S2
-        representant2->getQueue()->setSuivant(this);
-        // On change la queue de S2
-        representant2->setQueue(this->getQueue());
-        
-    } else {
-        // taille(S1) > taille(S2)
-        // On change donc les représentants des pixels de S2 (le set le plus court)
-        
-        Pixel* parcoursS2 = representant2;
-        do {
-            parcoursS2->setRepresentant(this);
-            parcoursS2 = parcoursS2->getSuivant();
-        } while (parcoursS2 != nullptr);
-
-        // On branche la tête de S2 à la queue de S1
-        this->getQueue()->setSuivant(representant2);
-        // On change la queue de S1
-        this->setQueue(representant2->getQueue());
     }
 }
 
